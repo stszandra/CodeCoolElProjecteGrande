@@ -8,8 +8,8 @@ public class basicUser : User
     private ShoppingCart _selectedProducts;
     private List<Order> _previousOrders;
     private List<Rating> _ratings;
-
-    public basicUser(Guid id, string firstName, string lastName, string address, string password) : base(id, firstName, lastName, address, password)
+    
+    public basicUser(Guid id, string firstName, string lastName, string address, string password, string email) : base(id, firstName, lastName, address, password, email)
     {
     }
     

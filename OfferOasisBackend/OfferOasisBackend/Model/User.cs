@@ -1,4 +1,6 @@
-﻿namespace OfferOasisBackend.Model;
+﻿using System.Text.RegularExpressions;
+
+namespace OfferOasisBackend.Model;
 
 public abstract class User
 {
@@ -18,17 +20,32 @@ public abstract class User
     private string LastName { get; }
     private string Address { get; }
     private string Password { get; }
+    private string Email { get; }
     
-    // TODO: email with validation
 
-    protected User(Guid id, string firstName, string lastName, string address, string password)
+
+    protected User(Guid id, string firstName, string lastName, string address, string password, string email)
     {
         Id = Guid.NewGuid();
         FirstName = firstName;
         LastName = lastName;
         Address = address;
         Password = password;
+        Email = email;
+        
     }
+    
+    
+    // private static bool IsValidEmail(string email)
+    // {
+    //     string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+		  //
+    //     if (string.IsNullOrEmpty(email))
+    //         return false;
+		  //
+    //     Regex regex = new Regex(emailPattern);
+    //     return regex.IsMatch(email);
+    // }
     
     // ... common methods?
 }
