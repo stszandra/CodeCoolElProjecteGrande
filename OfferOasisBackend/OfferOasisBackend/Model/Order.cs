@@ -1,4 +1,6 @@
-﻿namespace OfferOasisBackend.Model;
+﻿using OfferOasisBackend.Models;
+
+namespace OfferOasisBackend.Model;
 
 public class Order
 {
