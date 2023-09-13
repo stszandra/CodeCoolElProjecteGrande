@@ -14,6 +14,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ILogger<UserController>, Logger<UserController>>();
 
 
+builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
