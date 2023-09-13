@@ -1,4 +1,6 @@
-﻿namespace OfferOasisBackend.Model;
+﻿using OfferOasisBackend.Models;
+
+namespace OfferOasisBackend.Model;
 
 public class Order
 {
@@ -7,7 +9,7 @@ public class Order
     private string BillingAddress { get; init; }
     private string ShippingAddress { get; init; }
     private string ShippingType { get; init; } // Todo: lehetne enum
-    private double ShippingCost { get; init; }
+    private decimal ShippingCost { get; init; }
     private DateTime OrderDate { get; init; }
     private User _user;
 }

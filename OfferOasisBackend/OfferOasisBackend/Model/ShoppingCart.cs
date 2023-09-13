@@ -1,10 +1,12 @@
-﻿namespace OfferOasisBackend.Model;
+﻿using OfferOasisBackend.Models;
+
+namespace OfferOasisBackend.Model;
 
 public class ShoppingCart
 {
     private List<Product> _products = new();
 
-    private double _totalPrice = 0;
+    private decimal _totalPrice = 0;
 
     public void AddProduct(Product product)
     {
