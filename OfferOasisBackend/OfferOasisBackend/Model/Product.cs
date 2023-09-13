@@ -1,8 +1,11 @@
-﻿namespace OfferOasisBackend.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace OfferOasisBackend.Models;
 
 public class Product
 {
     public int Id { get; init; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public ProductType ProductType { get; init; }
     public DateTime PostDate { get; init; }
     public decimal Price { get; private set; }
