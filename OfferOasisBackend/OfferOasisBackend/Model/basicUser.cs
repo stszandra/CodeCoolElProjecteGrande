@@ -1,4 +1,6 @@
-﻿namespace OfferOasisBackend.Model;
+﻿using OfferOasisBackend.Models;
+
+namespace OfferOasisBackend.Model;
 
 public class basicUser : User
 {
@@ -9,7 +11,7 @@ public class basicUser : User
     private List<Order> _previousOrders;
     private List<Rating> _ratings;
     
-    public basicUser(Guid id, string firstName, string lastName, string address, string password, string email) : base(id, firstName, lastName, address, password, email)
+    public basicUser(int id, string firstName, string lastName, string address, string password, string email) : base(id, firstName, lastName, address, password, email)
     {
     }
     

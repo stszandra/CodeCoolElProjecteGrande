@@ -15,7 +15,7 @@ public abstract class User
     // - previousOrders (user)
     // - ratings List<Rating> (user)
     
-    private Guid Id { get; }
+    private int Id { get; }
     private string FirstName { get; }
     private string LastName { get; }
     private string Address { get; }
@@ -24,9 +24,9 @@ public abstract class User
     
 
 
-    protected User(Guid id, string firstName, string lastName, string address, string password, string email)
+    protected User(int id, string firstName, string lastName, string address, string password, string email)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         Address = address;
