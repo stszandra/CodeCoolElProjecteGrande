@@ -1,3 +1,4 @@
+
 using OfferOasisBackend.Controllers;
 using OfferOasisBackend.Model;
 using OfferOasisBackend.Service;
@@ -10,10 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ILogger<UserController>, Logger<UserController>>();
-
-
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 
 
