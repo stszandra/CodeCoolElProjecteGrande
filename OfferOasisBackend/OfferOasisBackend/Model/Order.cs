@@ -1,15 +1,29 @@
-﻿using OfferOasisBackend.Models;
+﻿using System.Text.Json.Serialization;
+using OfferOasisBackend.Models;
 
 namespace OfferOasisBackend.Model;
 
 public class Order
 {
-    public Guid Id { get; init; }
-    private List<Product> _products;
+    public int Id { get; init; }
+    private List<Product> Products { get; init; }
     private string BillingAddress { get; init; }
     private string ShippingAddress { get; init; }
-    private string ShippingType { get; init; } // Todo: lehetne enum
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    private ShippingType Shipping { get; init; }
     private decimal ShippingCost { get; init; }
     private DateTime OrderDate { get; init; }
-    private User _user;
+    private User User { get; init; }
+
+    public Order(int id, List<Product> products, string billingAddress, string shippingAddress, ShippingType shipping, User user)
+    {
+        Id = id;
+        Products = products;
+        BillingAddress = billingAddress;
+        ShippingAddress = shippingAddress;
+        Shipping = shipping;
+        ShippingCost = 0; // computed property to be implemented
+        OrderDate = DateTime.Now;
+        User = user;
+    }
 }
