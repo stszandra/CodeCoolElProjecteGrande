@@ -4,17 +4,6 @@ namespace OfferOasisBackend.Model;
 
 public abstract class User
 {
-    // - id
-    // - email
-    // - password
-    // - firstname
-    // - lastname
-    // - address
-    
-    // - shoppingCart (user)
-    // - previousOrders (user)
-    // - ratings List<Rating> (user)
-    
     private int Id { get; }
     private string FirstName { get; }
     private string LastName { get; }
@@ -22,8 +11,6 @@ public abstract class User
     private string Password { get; }
     private string Email { get; }
     
-
-
     protected User(int id, string firstName, string lastName, string address, string password, string email)
     {
         Id = id;

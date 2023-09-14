@@ -4,9 +4,6 @@ namespace OfferOasisBackend.Model;
 
 public class basicUser : User
 {
-    // - shoppingCart (user)
-    // - previousOrders (user)
-    // - ratings List<Rating> (user)
     private ShoppingCart _selectedProducts;
     private List<Order> _previousOrders;
     private List<Rating> _ratings;
