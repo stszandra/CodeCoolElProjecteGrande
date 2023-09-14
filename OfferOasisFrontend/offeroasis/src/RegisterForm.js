@@ -4,14 +4,7 @@ import Navbar from "../src/Navbar";
 import { useState } from 'react';
 
 function RegisterForm() {
-  const [first, setfirst] = useState("")
-  useEffect(() => {
-   fetch("https://localhost:5001/products")
-   .then(resp=>resp.json)
-   .then(data=>setfirst(data))
 
-  }, [])
-  console.log(first);
   return (
     <div>
     <Navbar/>
