@@ -16,10 +16,23 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ILogger<UserController>, Logger<UserController>>();
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactAppPolicy", builder =>
+    {
+        builder
+            .WithOrigins("http://localhost:3000")   // Change to your specific frontend origin(s)
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        
+    });
+});
+
+// Other service configurations
 
 
 var app = builder.Build();
-
+app.UseCors("ReactAppPolicy");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -27,7 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
