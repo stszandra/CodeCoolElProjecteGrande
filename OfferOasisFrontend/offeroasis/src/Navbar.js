@@ -32,7 +32,7 @@ function Navbar() {
         </li>
         <li className="nav__item">
           <a href="/products" className="nav__link">
-            Products
+         Endpoints
           </a>
         </li>
         <li className="nav__item">
