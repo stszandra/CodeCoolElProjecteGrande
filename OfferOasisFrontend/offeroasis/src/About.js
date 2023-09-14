@@ -1,7 +1,11 @@
 import React from 'react'
 import Navbar from "../src/Navbar";
 import "../src/about.css"
+import { useState } from 'react';
+import { useEffect } from 'react';
 function About() {
+  
+  
   return (
     <div className='div1'>
         <Navbar/>
