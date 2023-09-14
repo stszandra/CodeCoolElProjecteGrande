@@ -1,8 +1,33 @@
+import { useState } from "react";
 import Navbar from "../src/Navbar";
 import './App.css';
+import { useEffect } from "react";
 
 
 function App() {
+  const [products, setProducts] = useState("");
+  const[users,setUsers]=useState("");
+  const[orders,setOrders]=useState("");
+  useEffect(() => {
+   fetch("http://localhost:5181/products")
+   .then(resp=>resp.text())
+   .then(data=>setProducts(data))
+  }, [])
+ 
+
+  useEffect(() => {
+   fetch("http://localhost:5181/users")
+   .then(resp=>resp.text())
+   .then(data=>setUsers(data))
+  }, [])
+  useEffect(() => {
+    fetch("http://localhost:5181/orders")
+    .then(resp=>resp.text())
+    .then(data=>setOrders(data))
+   }, [])
+  console.log(users);
+  console.log(products);
+  console.log(orders)
   return (
     <>
     <Navbar/>
@@ -14,7 +39,7 @@ function App() {
         <img src="https://picsum.photos/id/1011/800/450" alt="" />
       </figure>
       <div class="article-body">
-        <h2>Women's fashion</h2>
+        <h2>{users}</h2>
         <p>
         People should be able to choose their clothing freely, and there's no objective reason why women should dress in fancy clothes. Dressing style is a matter of personal preference, and everyone should decide what makes them feel comfortable and confident. Dressing nicely is not about gender but about individual style and self-expression.
         </p>
@@ -34,7 +59,7 @@ function App() {
         <img src="https://picsum.photos/id/1005/800/450" alt="" />
       </figure>
       <div class="article-body">
-        <h2>Men's fashion</h2>
+        <h2>{products}</h2>
         <p>
         
 Men should have the freedom to choose their clothing as they wish, just like women. There's no inherent requirement for men to dress in any particular way, and clothing should be a matter of personal style and comfort. People should feel free to express themselves through their clothing choices regardless of their gender.
@@ -55,7 +80,7 @@ Men should have the freedom to choose their clothing as they wish, just like wom
         <img src="https://picsum.photos/id/103/800/450" alt="" />
       </figure>
       <div class="article-body">
-        <h2>Toy,Kids & Babies fashion</h2>
+        <h2>{orders}</h2>
         <p>
         Children's toys should encourage creativity and learning. Toys play a crucial role in a child's development by fostering their imagination and helping them acquire essential skills. It's important to choose toys that are age-appropriate and promote healthy development.
         </p>
