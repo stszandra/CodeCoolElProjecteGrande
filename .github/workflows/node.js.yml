@@ -12,7 +12,9 @@ on:
 
 jobs:
   build:
-    
+    defaults:
+      run:
+        working-directory: ./OfferOasisFrontend/offeroasis
     runs-on: ubuntu-latest
     strategy:
       matrix:
