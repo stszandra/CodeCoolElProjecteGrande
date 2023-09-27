@@ -10,7 +10,7 @@ public class Product
     public DateTime PostDate { get; init; }
     public int Price { get; private set; }
     public bool IsSold { get; private set; }
-    public List<Rating> UserRatings { get; init; }
+    // Todo: kapcsolótábla public List<Rating> UserRatings { get; init; } 
 
     public Product(int id, ProductType productType, DateTime postDate, int price)
     {
@@ -19,6 +19,5 @@ public class Product
         PostDate = postDate;
         Price = price;
         IsSold = false;
-        UserRatings = new List<Rating>();
     }
 }
