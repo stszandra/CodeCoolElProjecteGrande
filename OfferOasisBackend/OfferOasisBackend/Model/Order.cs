@@ -15,15 +15,20 @@ public class Order
     private DateTime OrderDate { get; init; }
     private User User { get; init; }
 
-    public Order(int id, List<Product> products, string billingAddress, string shippingAddress, ShippingType shipping, User user)
-    {
-        Id = id;
-        Products = products;
-        BillingAddress = billingAddress;
-        ShippingAddress = shippingAddress;
-        Shipping = shipping;
-        ShippingCost = 0; // computed property to be implemented
-        OrderDate = DateTime.Now;
-        User = user;
-    }
+    // public Order(int id, List<Product> products, string billingAddress, string shippingAddress, ShippingType shipping, User user)
+    // {
+    //     Id = id;
+    //     Products = products;
+    //     BillingAddress = billingAddress;
+    //     ShippingAddress = shippingAddress;
+    //     Shipping = shipping;
+    //     ShippingCost = 0; // computed property to be implemented
+    //     OrderDate = DateTime.Now;
+    //     User = user;
+    // }
+    //
+    // public Order()
+    // {
+    //     
+    // }
 }
