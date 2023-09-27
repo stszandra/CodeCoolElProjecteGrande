@@ -8,11 +8,11 @@ public class Product
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public ProductType ProductType { get; init; }
     public DateTime PostDate { get; init; }
-    public decimal Price { get; private set; }
+    public int Price { get; private set; }
     public bool IsSold { get; private set; }
     public List<Rating> UserRatings { get; init; }
 
-    public Product(int id, ProductType productType, DateTime postDate, decimal price)
+    public Product(int id, ProductType productType, DateTime postDate, int price)
     {
         Id = id;
         ProductType = productType;
