@@ -7,6 +7,7 @@ public class OasisContext : DbContext
 {
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<Rating> Ratings { get; set; }
 
     public DbSet<Test> Test {get; set; }
     
@@ -15,7 +16,7 @@ public class OasisContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            "Server=localhost,1433;Database=test2;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True");
+            "Server=localhost,1433;Database=test3;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True");
         //trust credentials
     }
     protected override void OnModelCreating(ModelBuilder builder)
@@ -36,6 +37,14 @@ public class OasisContext : DbContext
             .IsUnique();
         
         builder.Entity<Test>();
+        
+        builder.Entity<Rating>()
+            .HasIndex(r => r.Id)
+            .IsUnique();
+        
+        builder.Entity<Rating>();
+        
+        
 
     }
 }
