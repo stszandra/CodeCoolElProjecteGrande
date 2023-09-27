@@ -1,4 +1,4 @@
 ﻿namespace OfferOasisBackend.Models;
 
-public record Rating(RatingType RatingGrade, String Comment, int UserId,
+public record Rating(int Id, RatingType RatingGrade, String Comment, int UserId,
     int ProductId);
