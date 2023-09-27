@@ -12,10 +12,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IProductRepository, ProductRepository>();
+// builder.Services.AddTransient<ITestRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<ILogger<UserController>, Logger<UserController>>();
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+builder.Services.AddSingleton<ITestRepository, TestRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactAppPolicy", builder =>
