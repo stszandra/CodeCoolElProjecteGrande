@@ -3,12 +3,19 @@
 public class Test
 {
     public int Id { get; init; }
-    public string StringTest { get; set; }
-    public int IntTest { get; set; }
+    public string Name { get; set; }
+    public int Rating { get; set; }
+    public string Picture { get; set; }
+    public int Price { get; set; }
+    public string Description { get; set; }
 
-    public Test(string stringTest, int intTest)
+    public Test(int id, string name, int rating, string picture, int price, string description)
     {
-        StringTest = stringTest;
-        IntTest = intTest;
+        Id = id;
+        Name = name;
+        Rating = rating;
+        Picture = picture;
+        Price = price;
+        Description = description;
     }
 }
