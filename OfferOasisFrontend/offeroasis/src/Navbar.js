@@ -41,6 +41,11 @@ function Navbar() {
           </a>
         </li>
         <li className="nav__item">
+          <a href="/test" className="nav__link">
+            Test
+          </a>
+        </li>
+        <li className="nav__item">
           <a href="/contact" className="nav__link">
             Contact
           </a>
