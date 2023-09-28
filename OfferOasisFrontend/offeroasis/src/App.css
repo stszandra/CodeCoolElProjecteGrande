@@ -6,11 +6,22 @@ article {
   position: relative;
   border-radius: 16px;
   box-shadow: none;
-  background: #c5b0b4df;
   transform-origin: center;
   transition: all 0.4s ease-in-out;
   overflow: hidden;
 }
+/* Add this code to your existing CSS */
+/* Add this code to your existing CSS */
+article figure:first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
+  margin: 16px; /* Adjust the margin as needed */
+  z-index: 1; /* Ensure it's above other content */
+}
+
 
 article a::after {
   position: absolute;
@@ -22,7 +33,7 @@ article a::after {
 
 /* basic article elements styling */
 article h2 {
-  margin: 0 0 18px 0;
+  margin: 0 0 0 0;
   font-family: "Arial", cursive;
   font-size: 1.9rem;
   letter-spacing: 0.06em;
