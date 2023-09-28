@@ -26,4 +26,24 @@ public class TestController : ControllerBase
         TestRepository.Add(new Test(0, name, rating, picture, price, description));
         return Ok($"Test {name} has been added to DB.");
     }
+
+    [HttpDelete]
+    public IActionResult Delete(int id)
+    {
+        TestRepository.Remove(id);
+        return Ok($"Test {id} has been deleted from DB.");
+    }
+    [HttpGet("/test/{id}")]
+    public IActionResult FindById(int id)
+    {
+        var testItem = TestRepository.GetById(id);
+
+        if (testItem == null)
+        {
+            return NotFound($"Test {id} not found in DB.");
+        }
+
+        return Ok(testItem);
+    }
+
 }
