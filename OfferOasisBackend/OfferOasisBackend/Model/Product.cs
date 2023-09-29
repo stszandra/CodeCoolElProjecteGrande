@@ -7,6 +7,8 @@ public class Product
     public int Id { get; init; }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public ProductType ProductType { get; init; }
+    
+    public string ProductTypeString { get; set; }
     public DateTime PostDate { get; init; }
     public int Price { get; private set; }
     public bool IsSold { get; private set; }
@@ -16,6 +18,7 @@ public class Product
     {
         Id = id;
         ProductType = productType;
+        ProductTypeString = Enum.GetName(typeof(ProductType), productType);
         PostDate = postDate;
         Price = price;
         IsSold = false;
