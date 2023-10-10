@@ -4,10 +4,9 @@ import './test.css';
 function Test() {
     const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5181/test")
-    .then(resp=>resp.json())
-    .then(data=>setProducts(data))
-   
+   fetch("http://localhost:5181/test")
+   .then(resp=>resp.json())
+   .then(data=>setProducts(data))
   }, [])
   
   console.log(products);
