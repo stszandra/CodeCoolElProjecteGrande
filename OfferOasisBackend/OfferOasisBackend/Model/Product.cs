@@ -5,22 +5,21 @@ namespace OfferOasisBackend.Models;
 public class Product
 {
     public int Id { get; init; }
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public string Name { get; set; }
+   //[JsonConverter(typeof(JsonStringEnumConverter))]
     public ProductType ProductType { get; init; }
-    
     public string ProductTypeString { get; set; }
-    public DateTime PostDate { get; init; }
-    public int Price { get; private set; }
-    public bool IsSold { get; private set; }
-    // Todo: kapcsolótábla public List<Rating> UserRatings { get; init; } 
+    public int Price { get; private set; } 
+    public int Quantity { get; private set; }
+    public int id2 { get; set; }
 
-    public Product(int id, ProductType productType, DateTime postDate, int price)
+    public Product(int id,string name,ProductType productType, int price,int quantity)
     {
         Id = id;
+        Name = name;
         ProductType = productType;
         ProductTypeString = Enum.GetName(typeof(ProductType), productType);
-        PostDate = postDate;
         Price = price;
-        IsSold = false;
+        Quantity = quantity;
     }
 }

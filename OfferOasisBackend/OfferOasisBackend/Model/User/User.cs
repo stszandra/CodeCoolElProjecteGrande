@@ -4,7 +4,7 @@ namespace OfferOasisBackend.Model;
 
 public abstract class User
 {
-    private int Id { get; }
+    public int Id { get;  }
     private string FirstName { get; }
     private string LastName { get; }
     private string Address { get; }
