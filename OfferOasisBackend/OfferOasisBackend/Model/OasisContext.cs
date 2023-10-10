@@ -16,24 +16,48 @@ public class OasisContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            "Server=localhost,1433;Database=testDB;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True");
+            "Server=localhost,1433;Database=testDB;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True;");
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // builder.Entity<Product>()
-        //     .HasIndex(u => u.Id)
-        //     .IsUnique();
-        //
-        // builder.Entity<Order>()
-        //     .HasIndex(o => o.Id)
-        //     .IsUnique();
-        //
-        // builder.Entity<Rating>()
-        //     .HasIndex(r => r.Id)
-        //     .IsUnique();
-        
-        builder.Entity<Test>()
-            .HasIndex(t => t.Id)
+        builder.Entity<Product>()
+            .HasIndex(u => u.Name)
             .IsUnique();
+        
+        builder.Entity<Product>()
+            .HasData(
+                new Product(1,"PS3",ProductType.Konzol,1500,10)
+            );
+        
+        builder.Entity<Order>()
+            .HasIndex(u => u.Id)
+            .IsUnique();
+        
+        builder.Entity<Order>()
+            .HasData(
+                new Order(1,1,"ABC","DGS",ShippingType.Delivery,4500)
+            );
+                      
+        builder.Entity<OrderDetails>()
+            .HasIndex(r => r.OrderDetailsId)
+            .IsUnique();
+
+        builder.Entity<OrderDetails>()
+            .HasData(
+                new OrderDetails(1,1,1,10)
+                );
+
+
+
+
+
+        // builder.Entity<Test>()
+        //    .HasIndex(t => t.Id)
+        //  .IsUnique();
+
+
+
     }
+    
 }
+
