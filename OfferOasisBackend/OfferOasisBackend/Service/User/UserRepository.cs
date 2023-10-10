@@ -9,12 +9,12 @@ public class UserRepository : IUserRepository
         return "A list of all the users.";
     }
     
-    public User? GetById(int id)
+    public async Task<User> GetById(int id)
     {
         return null;
     }
 
-    public HashSet<User> GetAll()
+    public async Task<List<User>> GetAll()
     {
         return null;
     }

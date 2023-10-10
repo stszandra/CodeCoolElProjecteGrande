@@ -1,4 +1,5 @@
-﻿using OfferOasisBackend.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using OfferOasisBackend.Model;
 using OfferOasisBackend.Models;
 
 namespace OfferOasisBackend.Service;
@@ -10,26 +11,26 @@ public class TestRepository : ITestRepository
         return "All products!";
     }
     
-    public Test? GetById(int id)
+    public async Task<Test> GetById(int id)
     {
-        using var dbContext = new OasisContext();
-        return dbContext.Test.FirstOrDefault(test => test.Id == id);
+        await using var dbContext = new OasisContext();
+        return await dbContext.Test.FirstOrDefaultAsync(test => test.Id == id) ?? throw new InvalidOperationException();
     }
     
-    public HashSet<Test> GetAll()
+    public async Task<List<Test>> GetAll()
     {
-        using var dbContext = new OasisContext();
-        return dbContext.Test.ToHashSet();
+       await using var dbContext = new OasisContext();
+       return await dbContext.Test.ToListAsync();
     }
     
-    public void Add(Test test)
+    public async void Add(Test test)
     {
         using var dbContext = new OasisContext();
         dbContext.Add(test);
-        dbContext.SaveChanges();   
+        await dbContext.SaveChangesAsync();   
     }
     
-    public void Remove(int id)
+    public  void Remove(int id)
     {
         using var dbContext = new OasisContext();
         var testToRemove = GetById(id);

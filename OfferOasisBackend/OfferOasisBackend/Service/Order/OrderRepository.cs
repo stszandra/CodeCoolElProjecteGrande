@@ -6,12 +6,12 @@ public class OrderRepository : IOrderRepository
 {
     private readonly List<string> _orders = new();
     
-    public Order? GetById(int id)
+    public Task<Order> GetById(int id)
     {
         return null;
     }
 
-    public HashSet<Order> GetAll()
+    public Task<List<Order>> GetAll()
     {
         return null;
     }
