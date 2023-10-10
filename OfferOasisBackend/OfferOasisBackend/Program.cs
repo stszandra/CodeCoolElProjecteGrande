@@ -22,12 +22,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("ReactAppPolicy", builder =>
     {
         builder
-            .WithOrigins("http://localhost:3001")
+            .WithOrigins("*")
             .AllowAnyMethod()
             .AllowAnyHeader();
         
     });
 });
+
 
 // Other service configurations
 
