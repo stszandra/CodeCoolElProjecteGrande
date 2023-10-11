@@ -1,40 +1,51 @@
-import React from 'react'
-import Navbar from "../src/Navbar";
-import "../src/about.css"
-import { useState } from 'react';
-import { useEffect } from 'react';
-function About() {
-  
-  
-  return (
-    <div className='div1'>
-        <Navbar/>
-<div class="tabs">
-  <input class="input" name="tabs" type="radio" id="tab-1" checked="checked"/>
-  <label class="label" for="tab-1">About us</label>
-  <div class="panel">
-    <h1>About us</h1>
-    <p>OfferOasis is a dynamic and innovative company at the forefront of revolutionizing the way businesses and consumers connect. Founded with a vision to simplify and enhance the shopping experience, we have quickly emerged as a trusted platform that bridges the gap between merchants and savvy shoppers.</p>
-  </div>
-  <input class="input" name="tabs" type="radio" id="tab-2"/>
-  <label class="label" for="tab-2">Our Mission</label>
-  <div class="panel">
-    <h1>Our Mission</h1>
-    <p>Our mission at OfferOasis is to empower consumers with access to exclusive deals, discounts, and promotions, while also providing businesses with a cutting-edge marketing channel to reach their target audience effectively. With a commitment to excellence and a passion for innovation, OfferOasis is poised to redefine the world of commerce. Join us on this exciting journey towards a brighter and more rewarding shopping future.</p>
-  </div>
-  <input class="input" name="tabs" type="radio" id="tab-3"/>
-  <label class="label" for="tab-3">Enjoy the shopping</label>
-  <div class="panel">
-    <h1>Exploring New Frontiers in Shopping</h1>
-    <p>At OfferOasis, we pride ourselves on fostering a vibrant and inclusive community of shoppers and businesses alike. Our dedicated team works tirelessly to curate a diverse range of offers, ensuring that everyone can find something that suits their needs and preferences. Whether you're a small boutique or a large retailer, OfferOasis is the perfect platform to showcase your products and connect with a highly engaged audience. Join us today, and let's transform the way you shop and do business.</p>
-  </div>
-</div>     
-<div class="container">
-  <h1 contenteditable className='work'>OUR WORKERS</h1>
-</div>
-   
-</div>
-  )
-}
+import React from "react";
 
-export default About
+const About = () => {
+    return (
+        <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
+            <div className="flex flex-col lg:flex-row justify-between gap-8">
+                <div className="w-full lg:w-5/12 flex flex-col justify-center">
+                    <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">About Us</h1>
+                    <p className="font-normal text-base leading-6 text-gray-600 ">OfferOasis: A global e-commerce giant, home to the world's largest webshop. We bring unbeatable variety, value, and convenience to millions of shoppers worldwide across diverse categories, from electronics to fashion, all wrapped in a user-friendly experience. Shop with us for limitless possibilities.</p>
+                </div>
+                <div className="w-full lg:w-8/12 ">
+                    <img className="w-full h-full" src="https://i.ibb.co/FhgPJt8/Rectangle-116.png" alt="A group of People" />
+                </div>
+            </div>
+
+            <div className="flex lg:flex-row flex-col justify-between gap-8 pt-12">
+                <div className="w-full lg:w-5/12 flex flex-col justify-center">
+                    <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">Our Story</h1>
+                    <p className="font-normal text-base leading-6 text-gray-600 ">
+We've been in the market for 10 years, and everyone is satisfied with our products. Customer satisfaction is our top priority, and we continually strive to provide quality and diverse products worldwide.</p>
+                </div>
+                <div className="w-full lg:w-8/12 lg:pt-8">
+                    <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
+                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
+                            <img className="md:block hidden" src="https://i.ibb.co/FYTKDG6/Rectangle-118-2.png" alt="Alexa featured Img" />
+                            <img className="md:hidden block" src="https://i.ibb.co/zHjXqg4/Rectangle-118.png" alt="Alexa featured Img" />
+                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Alexa</p>
+                        </div>
+                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
+                            <img className="md:block hidden" src="https://i.ibb.co/fGmxhVy/Rectangle-119.png" alt="Olivia featured Img" />
+                            <img className="md:hidden block" src="https://i.ibb.co/NrWKJ1M/Rectangle-119.png" alt="Olivia featured Img" />
+                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Olivia</p>
+                        </div>
+                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
+                            <img className="md:block hidden" src="https://i.ibb.co/Pc6XVVC/Rectangle-120.png" alt="Liam featued Img" />
+                            <img className="md:hidden block" src="https://i.ibb.co/C5MMBcs/Rectangle-120.png" alt="Liam featued Img" />
+                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Liam</p>
+                        </div>
+                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
+                            <img className="md:block hidden" src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png" alt="Elijah featured img" />
+                            <img className="md:hidden block" src="https://i.ibb.co/ThZBWxH/Rectangle-121.png" alt="Elijah featured img" />
+                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Elijah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default About;
