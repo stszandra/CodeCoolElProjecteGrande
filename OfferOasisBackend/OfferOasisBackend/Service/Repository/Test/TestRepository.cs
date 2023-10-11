@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OfferOasisBackend.Data;
 using OfferOasisBackend.Model;
 using OfferOasisBackend.Models;
 
