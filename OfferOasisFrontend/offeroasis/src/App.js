@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "../src/Navbar";
-import './App.css';
+
 import { useEffect } from "react";
 
 
@@ -30,7 +30,7 @@ function App() {
   console.log(orders)
   return (
     <>
-    <Navbar/>
+  
 
     <section class="articles">
   <article>
@@ -94,7 +94,6 @@ Men should have the freedom to choose their clothing as they wish, just like wom
     </div>
   </article>
 </section>
-
     </>
 
     
