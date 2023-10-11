@@ -1,4 +1,6 @@
-﻿namespace OfferOasisBackend.Service;
+﻿using OfferOasisBackend.Model;
+
+namespace OfferOasisBackend.Service;
 
 public interface IGenericRepository<T> where T : class
 {

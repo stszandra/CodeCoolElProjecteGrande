@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OfferOasisBackend.Model;
 using OfferOasisBackend.Service;
 
 namespace OfferOasisBackend.Controllers;
 
+[Authorize]
 [ApiController, Route("/orders")]
 public class OrderController : ControllerBase
 {

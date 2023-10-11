@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OfferOasisBackend.Service;
 
 namespace OfferOasisBackend.Controllers;
 
+[Authorize]
 [ApiController, Route("/users")]
 public class UserController : ControllerBase
 {

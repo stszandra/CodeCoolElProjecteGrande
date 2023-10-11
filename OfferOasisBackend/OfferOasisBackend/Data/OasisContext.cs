@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OfferOasisBackend.Model;
 using OfferOasisBackend.Models;
 
-namespace OfferOasisBackend.Model;
+namespace OfferOasisBackend.Data;
 
 public class OasisContext : DbContext
 {
@@ -15,6 +16,8 @@ public class OasisContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        // TODO: It would be a good idea to move the connection string to user secrets
+
         optionsBuilder.UseSqlServer(
             "Server=localhost,1433;Database=testDB;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True;");
     }
