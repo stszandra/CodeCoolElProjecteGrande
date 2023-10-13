@@ -1,6 +1,4 @@
 import { useState } from "react";
-import Navbar from "../src/Navbar";
-
 import { useEffect } from "react";
 
 
@@ -9,14 +7,14 @@ function App() {
   const[users,setUsers]=useState("");
   const[orders,setOrders]=useState("");
   useEffect(() => {
-   fetch("http://localhost:5181/products")
+   fetch("https://localhost:7193/products")
    .then(resp=>resp.text())
    .then(data=>setProducts(data))
   }, [])
  
 
   useEffect(() => {
-   fetch("http://localhost:5181/users")
+   fetch("https://localhost:7193/users")
    .then(resp=>resp.text())
    .then(data=>setUsers(data))
   }, [])
