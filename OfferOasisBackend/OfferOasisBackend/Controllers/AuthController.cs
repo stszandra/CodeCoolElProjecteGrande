@@ -19,21 +19,21 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
     {
         Console.WriteLine(request);
-        // if (!ModelState.IsValid)
-        // {
-        //     return BadRequest(ModelState);
-        // }
-        //
-        // var result = await _authService.RegisterAsync(request.Email, request.Username, request.Password, "User");
-        //
-        // if (!result.Success)
-        // {
-        //     AddErrors(result);
-        //     return BadRequest(ModelState);
-        // }
-        //
-        // return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
-        return Ok(request);
+         if (!ModelState.IsValid)
+         {
+            return BadRequest(ModelState);
+         }
+        
+         var result = await _authService.RegisterAsync(request.Email, request.Username, request.Password, "User");
+        
+        if (!result.Success)
+         {
+           AddErrors(result);
+            return BadRequest(ModelState);
+        }
+        
+         return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
+     //   return Ok(request);
     }
     
     [HttpPost("Login")]
