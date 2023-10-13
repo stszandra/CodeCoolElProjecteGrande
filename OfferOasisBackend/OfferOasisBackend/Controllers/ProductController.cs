@@ -15,8 +15,8 @@ public class ProductController : ControllerBase
     {
         ProductRepository = productRepository;
     }
-
-    [HttpGet]
+    
+    [HttpGet,Authorize(Roles = "User")]
     public IActionResult GetAllProducts()
     {
         return Ok(ProductRepository.TestGetAllProducts());
