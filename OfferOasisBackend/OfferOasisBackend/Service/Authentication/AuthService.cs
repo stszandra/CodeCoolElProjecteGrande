@@ -46,7 +46,8 @@ public class AuthService : IAuthService
 
         var userRoles = await _userManager.GetRolesAsync(managedUser);
         string role = userRoles.FirstOrDefault();
-        var accessToken = _tokenService.CreateToken(managedUser, role);
+        var accessToken = _tokenService.CreateToken(managedUser, "User");
+        Console.WriteLine( "This is my role: " + role);
 
         return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
     }
