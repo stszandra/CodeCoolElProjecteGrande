@@ -45,9 +45,8 @@ public class AuthService : IAuthService
         }
 
         var userRoles = await _userManager.GetRolesAsync(managedUser);
-        string role = userRoles.FirstOrDefault();
-        var accessToken = _tokenService.CreateToken(managedUser, "User");
-        Console.WriteLine( "This is my role: " + role);
+        string role = userRoles[0];
+        var accessToken = _tokenService.CreateToken(managedUser, role);
 
         return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
     }
@@ -75,5 +74,66 @@ public class AuthService : IAuthService
         }
 
         return authResult;
+    }
+    
+    public async Task<AuthResult> ManageUserRoleAsync(string email, string roleName, bool addToRole)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+        {
+            return UserNotFound();
+        }
+
+        var roleExists = await _userManager.GetRolesAsync(user);
+    
+        if (addToRole)
+        {
+            if (roleExists.All(r => r != roleName))
+            {
+                // Role does not exist, create it
+                var roleCreationResult = await _userManager.AddToRoleAsync(user, roleName);
+
+                if (!roleCreationResult.Succeeded)
+                {
+                    return RoleAdditionFailed(email, roleName);
+                }
+            }
+        }
+        else
+        {
+            if (roleExists.Any(r => r == roleName))
+            {
+                // Remove the user from the role
+                var roleRemovalResult = await _userManager.RemoveFromRoleAsync(user, roleName);
+
+                if (!roleRemovalResult.Succeeded)
+                {
+                    return RoleRemovalFailed(email, roleName);
+                }
+            }
+        }
+
+        return new AuthResult(true, user.Email, user.UserName, "");
+    }
+
+    private AuthResult UserNotFound()
+    {
+        var result = new AuthResult(false, "", "", "");
+        result.ErrorMessages.Add("User not found", "User with the provided data was not found.");
+        return result;
+    }
+    private AuthResult RoleAdditionFailed(string email, string roleName)
+    {
+        var result = new AuthResult(false, email, "", "");
+        result.ErrorMessages.Add("Role addition failed", $"Failed to add the user to the role '{roleName}'.");
+        return result;
+    }
+
+    private AuthResult RoleRemovalFailed(string email, string roleName)
+    {
+        var result = new AuthResult(false, email, "", "");
+        result.ErrorMessages.Add("Role removal failed", $"Failed to remove the user from the role '{roleName}'.");
+        return result;
     }
 }

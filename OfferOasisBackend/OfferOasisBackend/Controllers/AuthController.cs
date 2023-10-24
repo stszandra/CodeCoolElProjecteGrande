@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OfferOasisBackend.Contract;
 using OfferOasisBackend.Service.Authentication;
+using SolarWatch.Contracts;
 
 namespace OfferOasisBackend.Controllers;
 
@@ -27,13 +29,13 @@ public class AuthController : ControllerBase
          var result = await _authService.RegisterAsync(request.Email, request.Username, request.Password, "User");
         
         if (!result.Success)
-         {
-           AddErrors(result);
+        {
+            AddErrors(result);
             return BadRequest(ModelState);
         }
         
-         return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
-     //   return Ok(request);
+        return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
+        //   return Ok(request);
     }
     
     [HttpPost("Login")]
@@ -61,5 +63,45 @@ public class AuthController : ControllerBase
         {
             ModelState.AddModelError(error.Key, error.Value);
         }
+    }
+    
+    [Authorize(Roles = "Admin")]
+    [HttpPost("add-role")]
+    public async Task<ActionResult<UserRoleModificationRequest>> AddRoleToUser([FromBody] UserRoleModificationRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        var result = await _authService.ManageUserRoleAsync(request.Email, request.RoleName, true);
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
+
+        return Ok(result);
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost("remove-role")]
+    public async Task<ActionResult<UserRoleModificationRequest>> RemoveRoleFromUser([FromBody] UserRoleModificationRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        var result = await _authService.ManageUserRoleAsync(request.Email, request.RoleName, false);
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
+
+        return Ok(result);
     }
 }
