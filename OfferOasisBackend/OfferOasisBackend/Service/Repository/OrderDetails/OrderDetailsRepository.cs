@@ -1,4 +1,5 @@
 ﻿using OfferOasisBackend.Model;
+using OfferOasisBackend.Models;
 
 namespace OfferOasisBackend.Service;
 
@@ -11,18 +12,18 @@ public class OrderDetailsRepository : IOrderDetailsRepository
         return null;
     }
 
-    public Task<List<OrderDetails>> GetAll()
+    public Task<IEnumerable<Product>> GetAll()
     {
         return null;
     }
 
-    public void Add(OrderDetails entity)
+    public async Task<bool> Add(OrderDetails entity)
     {
-        
+        return true;
     }
 
-    public void Remove(int id)
+    public Task<OrderDetails?> Remove(int id)
     {
-       
+        return null;
     }
 }
