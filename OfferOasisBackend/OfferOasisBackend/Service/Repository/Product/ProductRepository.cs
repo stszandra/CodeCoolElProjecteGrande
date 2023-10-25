@@ -1,33 +1,50 @@
-﻿using OfferOasisBackend.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using OfferOasisBackend.Data;
 using OfferOasisBackend.Models;
 
 namespace OfferOasisBackend.Service;
 
 public class ProductRepository : IProductRepository
 {
-    public string TestGetAllProducts()
+    public async Task<Product?> GetById(int id)
     {
-        return "All products!";
+        await using var dbContext = new OasisContext();
+        return await dbContext.Products.FindAsync(id);
     }
-
-
-    public Task<Product> GetById(int id)
+    
+    public async Task<IEnumerable<Product>> GetAll()
     {
-        throw new NotImplementedException();
+        await using var dbContext = new OasisContext();
+        return await dbContext.Products.ToListAsync();
     }
-
-    public Task<List<Product>> GetAll()
+    
+    public async Task<bool> Add(Product product)
     {
-        throw new NotImplementedException();
+        bool success = true;
+        await using var dbContext = new OasisContext();
+        try
+        {
+            await dbContext.AddAsync(product);
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            success = false;
+        }
+
+        return success;
     }
-
-    public void Add(Product entity)
+    
+    public async Task<Product?> Remove(int id)
     {
-        throw new NotImplementedException();
-    }
+        await using var dbContext = new OasisContext();
+        var productToRemove = await GetById(id);
 
-    public void Remove(int id)
-    {
-        throw new NotImplementedException();
+        if (productToRemove == null) return productToRemove;
+        dbContext.Remove(productToRemove);
+        await dbContext.SaveChangesAsync();
+
+        return productToRemove;
     }
 }
