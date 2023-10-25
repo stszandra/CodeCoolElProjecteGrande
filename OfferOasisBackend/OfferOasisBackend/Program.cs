@@ -67,10 +67,11 @@ void AddServices()
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSingleton<IUserRepository, UserRepository>();
     builder.Services.AddSingleton<ILogger<UserController>, Logger<UserController>>();
+    builder.Services.AddSingleton<ILogger<ProductController>, Logger<ProductController>>();
     builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
     builder.Services.AddSingleton<IOrderDetailsRepository, OrderDetailsRepository>();
     builder.Services.AddSingleton<IProductRepository, ProductRepository>();
-    builder.Services.AddSingleton<ITestRepository, TestRepository>();
+    // builder.Services.AddSingleton<ITestRepository, TestRepository>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
 }
