@@ -12,7 +12,7 @@ public class UsersContext : IdentityDbContext<IdentityUser, IdentityRole, string
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         // TODO: It would be a good idea to move the connection string to user secrets
-        options.UseSqlServer("Server=localhost,1433;Database=testDB;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True;");
+        options.UseSqlServer("Server=localhost,1433;Database=OfferOasisDB;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True;");
 
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
