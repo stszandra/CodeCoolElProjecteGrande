@@ -37,28 +37,26 @@ public class ProductControllerIntegrationTests
             var token = desContent.Token;
             _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
-        // [Test]
-        // public async Task GetSunriseSunsetAsync_ReturnsSunriseSunsetData()
-        // {
-        //     // Arrange
-        //     
-        //     var cityName = "Budapest";
-        //     var date = DateTime.Today;
-        //
-        //     // Act
-        //     var response = await _client.GetAsync($"/SunriseSunset/GetOrAddByDateAndCityName?cityName={cityName}&date={date}");
-        //
-        //     // Assert
-        //     response.EnsureSuccessStatusCode();
-        //     Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        //     
-        //     var responseContent = await response.Content.ReadAsStringAsync();
-        //     var sunriseSunsetData = JsonConvert.DeserializeObject<SunriseSunset>(responseContent);
-        //     
-        //     Assert.NotNull(sunriseSunsetData);
-        //     Assert.That(date, Is.EqualTo(sunriseSunsetData.ActualDate)); 
-        // }
-        //
+        [Test]
+        public async Task GetProductById_ReturnsProductWithCorrectId()
+        {
+            // Arrange
+            var id = 1;
+        
+            // Act
+            var response = await _client.GetAsync($"/GetProduct/{id}");
+        
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var productData = JsonConvert.DeserializeObject<Product>(responseContent);
+            
+            Assert.NotNull(productData);
+            Assert.That(productData.Id, Is.EqualTo(id));
+        }
+        
         [Test]
         public async Task GetAllProducts_ReturnsOkStatus()
         {
