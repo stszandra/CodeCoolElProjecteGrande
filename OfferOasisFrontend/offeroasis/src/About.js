@@ -2,49 +2,40 @@ import React from "react";
 
 const About = () => {
     return (
-        <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
-            <div className="flex flex-col lg:flex-row justify-between gap-8">
-                <div className="w-full lg:w-5/12 flex flex-col justify-center">
-                    <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">About Us</h1>
-                    <p className="font-normal text-base leading-6 text-gray-600 ">OfferOasis: A global e-commerce giant, home to the world's largest webshop. We bring unbeatable variety, value, and convenience to millions of shoppers worldwide across diverse categories, from electronics to fashion, all wrapped in a user-friendly experience. Shop with us for limitless possibilities.</p>
-                </div>
-                <div className="w-full lg:w-8/12 ">
-                    <img className="w-full h-full" src="https://i.ibb.co/FhgPJt8/Rectangle-116.png" alt="A group of People" />
-                </div>
-            </div>
+<div> 
+             <h1 class="mb-4 text-center flex-1 justify-center text-xl font-extrabold text-gray-900 dark:text-white md:text-xl lg:text-2xl">
+    <span class=" text-transparent bg-clip-text bg-gradient-to-r to-green-900 from-red-900">Our Mission</span> 
+</h1>
 
-            <div className="flex lg:flex-row flex-col justify-between gap-8 pt-12">
-                <div className="w-full lg:w-5/12 flex flex-col justify-center">
-                    <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4">Our Story</h1>
-                    <p className="font-normal text-base leading-6 text-gray-600 ">
-We've been in the market for 10 years, and everyone is satisfied with our products. Customer satisfaction is our top priority, and we continually strive to provide quality and diverse products worldwide.</p>
+               <div className="flex" > 
+               <div className='w-1/2'>
+               <div className=' ml-10 font-bold text-transparent bg-clip-text md:underline-red'>
+                Please register first before you can place an order</div>
+                <div className='ml-10 text-justify'>
+                At OfferOasis, we are driven by a passion for excellence and a commitment to innovation. Our journey began with a simple idea: to provide solutions that make a meaningful difference in people's lives. Today, we have grown into a dynamic team of dedicated professionals who strive to exceed expectations.
                 </div>
-                <div className="w-full lg:w-8/12 lg:pt-8">
-                    <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-4 shadow-lg rounded-md">
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/FYTKDG6/Rectangle-118-2.png" alt="Alexa featured Img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/zHjXqg4/Rectangle-118.png" alt="Alexa featured Img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Alexa</p>
-                        </div>
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/fGmxhVy/Rectangle-119.png" alt="Olivia featured Img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/NrWKJ1M/Rectangle-119.png" alt="Olivia featured Img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Olivia</p>
-                        </div>
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/Pc6XVVC/Rectangle-120.png" alt="Liam featued Img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/C5MMBcs/Rectangle-120.png" alt="Liam featued Img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Liam</p>
-                        </div>
-                        <div className="p-4 pb-6 flex justify-center flex-col items-center">
-                            <img className="md:block hidden" src="https://i.ibb.co/7nSJPXQ/Rectangle-121.png" alt="Elijah featured img" />
-                            <img className="md:hidden block" src="https://i.ibb.co/ThZBWxH/Rectangle-121.png" alt="Elijah featured img" />
-                            <p className="font-medium text-xl leading-5 text-gray-800 mt-4">Elijah</p>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
+               <div className='w-1/2'>
+               <img src="https://ugc.production.linktr.ee/VTvB7OE8Tvy2h3rghfcM_eUo70UeLDQ437e2o" alt="" className="h-60 w-100 ml-16 border-double rounded-2xl"  />
+                 </div>
+               </div>
+               <div className="flex"> 
+               <div className='w-1/2'>
+               <div className=' ml-10 font-bold text-transparent bg-clip-text md:underline-red' alt="">
+                Please register first before you can place an order</div>
+                <div className='ml-10 text-justify'>
+                What Sets Us Apart
+We differentiate ourselves through our unwavering dedication to quality, unmatched customer service, and a deep understanding of our customers' needs. We believe in not just meeting but exceeding expectations.
+We are committed to fostering growth, both for our team members and the communities we serve. Sustainability, ethics, and social responsibility are integral to our operations.
+                </div>
+                </div>
+               <div className='w-1/2'>
+               <img src="https://linktr.ee/og/image/OfferOasis.jpg" className="h-60 w-1/2 mt-6 ml-16 border-double rounded-2xl ml-60"/>
+                 </div>
+               </div>
+               </div>
+             
+               
     );
 };
 
