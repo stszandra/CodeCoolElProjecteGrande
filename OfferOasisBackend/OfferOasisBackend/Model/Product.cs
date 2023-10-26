@@ -9,8 +9,8 @@ public class Product
    //[JsonConverter(typeof(JsonStringEnumConverter))]
     public ProductType ProductType { get; init; }
     public string ProductTypeString { get; set; }
-    public int Price { get; private set; } 
-    public int Quantity { get; private set; }
+    public int Price { get; set; } 
+    public int Quantity { get; set; }
     public int id2 { get; set; }
 
     public Product(int id,string name,ProductType productType, int price,int quantity)
