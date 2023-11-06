@@ -21,6 +21,6 @@
    - After granting the access, you should be able to clone our repository
   
 - Contributors with their respective field of expertise
-  - Backend and DevOps and Dockerization, Agile methodologies: [Réka Makádi](https://github.com/rekamakadi).
-  - Backend and database: [Balázs Oltvölgyi](https://github.com/balazs-oltvolgyi).
-  - Frontend: [József Armand Varga](https://github.com/Mondi18).
+  - Backend and DevOps and Dockerization, Agile methodologies: [Réka Makádi](https://github.com/rekamakadi)
+  - Backend and database: [Balázs Oltvölgyi](https://github.com/balazs-oltvolgyi)
+  - Frontend: [József Armand Varga](https://github.com/Mondi18)
