@@ -19,14 +19,14 @@ public class ProductController : ControllerBase
     }
     
     [HttpGet]
-    // [Authorize(Roles = "User")]
+     //[Authorize(Roles = "Admin")]
     public async Task<ActionResult<List<Product>>> GetAllProducts()
     {
         return Ok(await _productRepository.GetAll());
     }
     
     [HttpGet("/GetProduct/{id}")]
-    // [Authorize(Roles = "Admin")]
+     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Product>> GetProductById(int id)
     {
         var product = await _productRepository.GetById(id);
@@ -40,7 +40,7 @@ public class ProductController : ControllerBase
     }
     
     [HttpPost("/AddProduct")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddProduct(Product product)
     {
         var success = await _productRepository.Add(product);
@@ -70,7 +70,7 @@ public class ProductController : ControllerBase
     // }
     //
     [HttpDelete("/DeleteProductById/{id}")]
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
         try
