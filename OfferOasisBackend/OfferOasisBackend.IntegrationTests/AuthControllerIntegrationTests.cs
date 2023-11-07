@@ -27,22 +27,13 @@ public class AuthControllerIntegrationTests
 
            
             _client = factory.CreateClient();
-
-            AuthRequest authRequest = new AuthRequest("admin@admin.com", "admin123");
-            var jsonString = JsonSerializer.Serialize(authRequest);
-            var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var response = _client.PostAsync("/Auth/Login", jsonStringContent).Result;
-            var content = response.Content.ReadAsStringAsync().Result;
-            var desContent = JsonSerializer.Deserialize<AuthResponse>(content,options);
-            var token = desContent.Token;
-            _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
 
         [Test]
         public async Task Register_InputsCorrect_Data()
         {
             // Arrange
-            var newUser = new RegistrationRequest("user@user.com","userName", "password123");
+            var newUser = new RegistrationRequest("user1@user.com","userName1", "password123");
             var jsonString = JsonSerializer.Serialize(newUser);
             var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
         
@@ -62,5 +53,30 @@ public class AuthControllerIntegrationTests
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             Assert.That(desContent.Email, Is.EqualTo(newUser.Email));
             Assert.That(desContent.UserName, Is.EqualTo(newUser.Username));
+        }
+
+        [Test]
+        public async Task Login_Returns_CorrectEmail()
+        {
+            //Arrange
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            AuthRequest authRequest = new AuthRequest("admin@admin.com", "admin123");
+            var jsonString = JsonSerializer.Serialize(authRequest);
+            var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            
+            //Act
+            var response = _client.PostAsync("/Auth/Login", jsonStringContent).Result;
+            var content = response.Content.ReadAsStringAsync().Result;
+            var desContent = JsonSerializer.Deserialize<AuthResponse>(content,options);
+            var token = desContent.Token;
+            _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            
+            //Assert
+            Assert.That(desContent.Email, Is.EqualTo(authRequest.Email));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            
         }
 }
