@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import "./navbar.css"
 import { Outlet } from 'react-router-dom'
 
 export default function Navbar({ ...props }) {
+  const token = localStorage.getItem('token');
+  
+const removeToken=()=>
+{
+localStorage.removeItem("token");
+}
   return (
 	<>
 <nav className="bg-red-50 shadow shadow-red-500 w-100 px-8 md:px-auto">
@@ -30,7 +36,12 @@ export default function Navbar({ ...props }) {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
-              <a href="/login"><span>Login/Register</span></a>
+                {token? (
+           <a href="/login" onClick={removeToken}><span>Logout</span></a>
+        ) : (
+          <a href="/login" ><span>Login/Register</span></a>
+        )}
+             
             </button>
 		</div>
 	</div>
