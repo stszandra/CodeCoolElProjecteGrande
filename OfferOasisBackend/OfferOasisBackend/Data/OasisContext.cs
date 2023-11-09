@@ -9,7 +9,7 @@ public class OasisContext : DbContext
     public DbSet<Product?> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Rating> Ratings { get; set; }
-    
+    public DbSet<Message> Messages { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // TODO: It would be a good idea to move the connection string to user secrets
@@ -49,6 +49,11 @@ public class OasisContext : DbContext
 
         builder.Entity<OrderDetails>()
             .HasData(new OrderDetails(1,1,1,10));
+        
+        builder.Entity<Message>()
+            .HasIndex(m => m.Id)
+            .IsUnique();
+   
     }
 }
 
