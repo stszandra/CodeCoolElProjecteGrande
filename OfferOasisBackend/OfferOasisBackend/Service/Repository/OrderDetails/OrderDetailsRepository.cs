@@ -12,7 +12,7 @@ public class OrderDetailsRepository : IOrderDetailsRepository
         return null;
     }
 
-    public Task<IEnumerable<Product>> GetAll()
+    public Task<IEnumerable<OrderDetails>> GetAll()
     {
         return null;
     }

@@ -15,7 +15,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task<IEnumerable<Product>> GetAll()
+    public async Task<IEnumerable<User>> GetAll()
     {
         return null;
     }
