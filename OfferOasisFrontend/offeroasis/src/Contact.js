@@ -1,11 +1,51 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "tailwindcss/tailwind.css";
 
 export default function Contact() {
+ console.log(localStorage.getItem('email'));
+ const [message,SetMessage]=useState([]);
+ const handleSubmit=(event)=>{
+  event.preventDefault();
+   const messageValue=event.target.message.value;
+ 
+  }
+  const SendMessageData = async (event) => {
+    event.preventDefault();
+    const messageValue=event.target.message.value;
+    const email=localStorage.getItem('email');
+    const userName=localStorage.getItem('userName');
+    let requestBody={
+      email:email,
+      userName:userName,
+      content:messageValue
+      
+    }
+    try {
+        const response = await fetch('https://localhost:7193/add',
+     {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+        
+        if (response.ok) {
+        console.log(response.body)
+        
+        } else {
+            // Registration failed, handle errors here
+            console.log("No")
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+};
   return (
     <div>
-      <section className="text-gray-700 body-font relative">
-        <div className="container px-5 py-24 mx-auto">
+      <section className="text-gray-700 body-font relative" >
+        
+        <form className="container px-5 py-24 mx-auto" onSubmit={(e)=>SendMessageData(e)} >
           <div className="flex flex-col text-center w-full mb-12">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
               Contact Us
@@ -23,6 +63,8 @@ export default function Contact() {
                     Name
                   </label>
                   <input
+                  disabled
+                  value={localStorage.getItem('userName')}
                     type="text"
                     id="name"
                     name="name"
@@ -40,6 +82,8 @@ export default function Contact() {
                     Email
                   </label>
                   <input
+                  disabled
+                  value={localStorage.getItem('email')}
                     type="email"
                     id="email"
                     name="email"
@@ -59,6 +103,7 @@ export default function Contact() {
                   <textarea
                     id="message"
                     name="message"
+                    required
                     className="w-full bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                   ></textarea>
                 </div>
@@ -137,7 +182,7 @@ export default function Contact() {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </section>
     </div>
   );
