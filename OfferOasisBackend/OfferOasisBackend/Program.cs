@@ -8,6 +8,7 @@ using OfferOasisBackend.Controllers;
 using OfferOasisBackend.Data;
 using OfferOasisBackend.Service;
 using OfferOasisBackend.Service.Authentication;
+using OfferOasisBackend.Service.Message;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,7 +72,8 @@ void AddServices()
     builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
     builder.Services.AddSingleton<IOrderDetailsRepository, OrderDetailsRepository>();
     builder.Services.AddSingleton<IProductRepository, ProductRepository>();
-    // builder.Services.AddSingleton<ITestRepository, TestRepository>();
+    builder.Services.AddSingleton<ILogger<MessageController>, Logger<MessageController>>();
+    builder.Services.AddSingleton<IMessageRepository, MessageRepository>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
 }
