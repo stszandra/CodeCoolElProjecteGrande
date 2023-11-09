@@ -31,8 +31,13 @@ export default function Login() {
                console.log(response.body);
                const data = await response.json();
              console.log(data.token);
-             //setToken(data.token)
+             console.log(data.userName);
+             console.log(data.email)
+            
             localStorage.setItem('token', data.token);
+            localStorage.setItem('userName',data.userName);
+            localStorage.setItem('email',data.email);
+
             window.location.pathname="/products"
             
             } else {
