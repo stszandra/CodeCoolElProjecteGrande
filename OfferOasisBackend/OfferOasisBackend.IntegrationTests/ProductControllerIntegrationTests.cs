@@ -6,6 +6,7 @@ using System.Net;
 using System.Text.Json;
 using OfferOasisBackend.Models;
 using OfferOasisBackend.Service.Authentication;
+using System.Configuration;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace OfferOasisBackend.IntegrationTests;
@@ -18,8 +19,7 @@ public class ProductControllerIntegrationTests
     public void Setup()
     {
         var factory = new WebApplicationFactory<Program>();
-        string connectionString =
-            "Server=localhost,1433;Database=OfferOasisDB;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=true;";
+        string connectionString = Environment.GetEnvironmentVariable("MyConnectionString");
         Environment.SetEnvironmentVariable("CONNECTION_STRING", connectionString);
         var options = new JsonSerializerOptions
         {

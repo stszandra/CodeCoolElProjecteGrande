@@ -6,6 +6,7 @@ namespace OfferOasisBackend.Service.Message;
 
 public class MessageRepository :IMessageRepository
 {
+    private readonly OasisContext _oasisContext;
     public Task<Model.Message?> GetById(int id)
     {
         throw new NotImplementedException();
@@ -19,11 +20,10 @@ public class MessageRepository :IMessageRepository
     public async Task<bool> Add(Model.Message message)
     {
         bool success = true;
-        await using var dbContext = new OasisContext();
         try
         {
-            await dbContext.AddAsync(message);
-            await dbContext.SaveChangesAsync();
+            await _oasisContext.AddAsync(message);
+            await _oasisContext.SaveChangesAsync();
         }
         catch (Exception e)
         {

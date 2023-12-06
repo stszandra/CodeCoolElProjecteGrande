@@ -6,26 +6,25 @@ namespace OfferOasisBackend.Service;
 
 public class ProductRepository : IProductRepository
 {
+    private readonly OasisContext _oasisContext;
     public async Task<Product?> GetById(int id)
     {
-        await using var dbContext = new OasisContext();
-        return await dbContext.Products.FindAsync(id);
+        return await _oasisContext.Products.FindAsync(id);
     }
     
     public async Task<IEnumerable<Product>> GetAll()
     {
-        await using var dbContext = new OasisContext();
-        return await dbContext.Products.ToListAsync();
+     
+        return await _oasisContext.Products.ToListAsync();
     }
     
     public async Task<bool> Add(Product product)
     {
         bool success = true;
-        await using var dbContext = new OasisContext();
         try
         {
-            await dbContext.AddAsync(product);
-            await dbContext.SaveChangesAsync();
+            await _oasisContext.AddAsync(product);
+            await _oasisContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
@@ -38,12 +37,12 @@ public class ProductRepository : IProductRepository
     
     public async Task<Product?> Remove(int id)
     {
-        await using var dbContext = new OasisContext();
+     
         var productToRemove = await GetById(id);
 
         if (productToRemove == null) return productToRemove;
-        dbContext.Remove(productToRemove);
-        await dbContext.SaveChangesAsync();
+        _oasisContext.Remove(productToRemove);
+        await _oasisContext.SaveChangesAsync();
 
         return productToRemove;
     }

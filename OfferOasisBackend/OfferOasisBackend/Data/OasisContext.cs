@@ -4,18 +4,16 @@ using OfferOasisBackend.Models;
 
 namespace OfferOasisBackend.Data;
 
-public class OasisContext : DbContext
+public class OasisContext : DbContext 
 {
     public DbSet<Product?> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Rating> Ratings { get; set; }
     public DbSet<Message> Messages { get; set; }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        // TODO: It would be a good idea to move the connection string to user secrets
 
-        optionsBuilder.UseSqlServer(
-            "Server=localhost,1433;Database=OfferOasisDB;User Id=sa;Password=Kiskutyafüle32!;TrustServerCertificate=True;");
+    public OasisContext(DbContextOptions<OasisContext> options): base(options)
+    {
+        
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {

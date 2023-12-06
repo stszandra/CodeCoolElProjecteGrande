@@ -2,6 +2,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OfferOasisBackend.Controllers;
@@ -66,14 +67,14 @@ void AddServices()
 {
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSingleton<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddSingleton<ILogger<UserController>, Logger<UserController>>();
     builder.Services.AddSingleton<ILogger<ProductController>, Logger<ProductController>>();
-    builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
-    builder.Services.AddSingleton<IOrderDetailsRepository, OrderDetailsRepository>();
-    builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+    builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+    builder.Services.AddScoped<IOrderDetailsRepository, OrderDetailsRepository>();
+    builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddSingleton<ILogger<MessageController>, Logger<MessageController>>();
-    builder.Services.AddSingleton<IMessageRepository, MessageRepository>();
+    builder.Services.AddScoped<IMessageRepository, MessageRepository>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
 }
@@ -143,8 +144,12 @@ void AddIdentity()
 
 void AddDbContext()
 {
-    builder.Services.AddDbContext<UsersContext>();
-    builder.Services.AddDbContext<OasisContext>();
+    builder.Services.AddDbContext<UsersContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("a") ?? 
+                             throw new InvalidOperationException("Connection string  not found.")));
+    builder.Services.AddDbContext<OasisContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("a") ?? 
+                             throw new InvalidOperationException("Connection string  not found.")));
 }
 
 void AddRoles()
