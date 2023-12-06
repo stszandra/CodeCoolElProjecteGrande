@@ -33,7 +33,9 @@ public class AuthControllerIntegrationTests
         public async Task Register_InputsCorrect_Data()
         {
             // Arrange
-            var newUser = new RegistrationRequest("user1@user.com","userName1", "password123");
+            Random random = new Random();
+            var userNumber=random.Next(1, 10000);
+            var newUser = new RegistrationRequest($"user{userNumber}@gmail.com",$"user"+userNumber.ToString(), "password123");
             var jsonString = JsonSerializer.Serialize(newUser);
             var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
         

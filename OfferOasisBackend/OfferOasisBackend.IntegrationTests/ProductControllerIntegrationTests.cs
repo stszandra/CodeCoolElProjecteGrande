@@ -25,8 +25,7 @@ public class ProductControllerIntegrationTests
         {
             PropertyNameCaseInsensitive = true
         };
-
-
+        
         _client = factory.CreateClient();
 
         AuthRequest authRequest = new AuthRequest("admin@admin.com", "admin123");
@@ -73,7 +72,9 @@ public class ProductControllerIntegrationTests
     public async Task AddProduct_ReturnsCreatedResponse()
     {
         // Arrange
-        var newProduct = new Product(0, "NewProduct122121", "Electronics", 200, 500,
+        Random random = new Random();
+        var productNumber = random.Next(1, 10000);
+        var newProduct = new Product(0, $"product {productNumber}", "Electronics", 200, 500,
             "https://example.com/images/bluetooth-speaker.jpg");
         var jsonString = JsonSerializer.Serialize(newProduct);
         var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
