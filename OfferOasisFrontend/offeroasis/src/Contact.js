@@ -4,12 +4,6 @@ import "tailwindcss/tailwind.css";
 
 export default function Contact() {
  console.log(localStorage.getItem('email'));
- const [message,SetMessage]=useState([]);
- const handleSubmit=(event)=>{
-  event.preventDefault();
-   const messageValue=event.target.message.value;
- 
-  }
   const SendMessageData = async (event) => {
     event.preventDefault();
     const messageValue=event.target.message.value;
@@ -60,12 +54,12 @@ export default function Contact() {
             <div className="flex flex-wrap -m-2">
               <div className="p-2 w-1/2">
                 <div className="relative">
-                  <label for="name" className="leading-7 text-sm text-gray-600">
+                  <label htmlFor="name" className="leading-7 text-sm text-gray-600">
                     Name
                   </label>
                   <input
                   disabled
-                  value={localStorage.getItem('userName')}
+                  value={localStorage.getItem('userName')==null? 'Please login!':localStorage.getItem('userName')}
                     type="text"
                     id="name"
                     name="name"
@@ -77,7 +71,7 @@ export default function Contact() {
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label
-                    for="email"
+                    htmlFor="email"
                     className="leading-7 text-sm text-gray-600"
                   >
                     Email
@@ -96,7 +90,7 @@ export default function Contact() {
               <div className="p-2 w-full">
                 <div className="relative">
                   <label
-                    for="message"
+                    htmlFor="message"
                     className="leading-7 text-sm text-gray-600"
                   >
                     Message
@@ -125,9 +119,9 @@ export default function Contact() {
                   <a className="text-gray-500">
                     <svg
                       fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       className="w-5 h-5"
                       viewBox="0 0 24 24"
                     >
@@ -137,9 +131,9 @@ export default function Contact() {
                   <a className="ml-4 text-gray-500">
                     <svg
                       fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       className="w-5 h-5"
                       viewBox="0 0 24 24"
                     >
@@ -150,9 +144,9 @@ export default function Contact() {
                     <svg
                       fill="none"
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       className="w-5 h-5"
                       viewBox="0 0 24 24"
                     >
@@ -170,9 +164,9 @@ export default function Contact() {
                   <a className="ml-4 text-gray-500">
                     <svg
                       fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       className="w-5 h-5"
                       viewBox="0 0 24 24"
                     >
