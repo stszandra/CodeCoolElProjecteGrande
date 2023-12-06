@@ -1,13 +1,9 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
+
 export default function Login() {
-    const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("");
-    const [token,setToken]=useState(null);
+    const navigate = useNavigate();
     const [isLoggedIn,setLoggedIn]=useState(false);
-    // console.log(email);
-    // console.log(password);
-    // console.log("This is a token" + token);
-    
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -38,7 +34,7 @@ export default function Login() {
             localStorage.setItem('userName',data.userName);
             localStorage.setItem('email',data.email);
 
-            window.location.pathname="/products"
+           navigate("/products")
             
             } else {
                 // Registration failed, handle errors here
