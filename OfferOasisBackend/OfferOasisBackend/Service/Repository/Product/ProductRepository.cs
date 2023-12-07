@@ -7,6 +7,12 @@ namespace OfferOasisBackend.Service;
 public class ProductRepository : IProductRepository
 {
     private readonly OasisContext _oasisContext;
+
+    public ProductRepository(OasisContext oasisContext)
+    {
+        _oasisContext = oasisContext;
+    }
+
     public async Task<Product?> GetById(int id)
     {
         return await _oasisContext.Products.FindAsync(id);
