@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OfferOasisBackend.Controllers;
 using OfferOasisBackend.Data;
+using OfferOasisBackend.Model;
 using OfferOasisBackend.Service;
 using OfferOasisBackend.Service.Authentication;
 using OfferOasisBackend.Service.Message;
@@ -128,7 +129,7 @@ void ConfigureSwagger()
 void AddIdentity()
 {
     builder.Services
-        .AddIdentityCore<IdentityUser>(options =>
+        .AddIdentityCore<User>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = true;
@@ -139,16 +140,13 @@ void AddIdentity()
             options.Password.RequireLowercase = false;
         })
         .AddRoles<IdentityRole>() //Enable Identity roles 
-        .AddEntityFrameworkStores<UsersContext>();
+        .AddEntityFrameworkStores<OasisContext>();
 }
 
 void AddDbContext()
 {
-    builder.Services.AddDbContext<UsersContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("a") ?? 
-                             throw new InvalidOperationException("Connection string  not found.")));
     builder.Services.AddDbContext<OasisContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("a") ?? 
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Oasis") ?? 
                              throw new InvalidOperationException("Connection string  not found.")));
 }
 
@@ -183,11 +181,11 @@ void AddAdmin()
 async Task CreateAdminIfNotExists()
 {
     using var scope = app.Services.CreateScope();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
     var adminInDb = await userManager.FindByEmailAsync("admin@admin.com");
     if (adminInDb == null)
     {
-        var admin = new IdentityUser { UserName = "admin", Email = "admin@admin.com" };
+        var admin = new User{ UserName = "admin", Email = "admin@admin.com",FirstName="Admin",LastName = "Admin",Address = "Budapest"};
         var adminCreated = await userManager.CreateAsync(admin, "admin123");
 
         if (adminCreated.Succeeded)
