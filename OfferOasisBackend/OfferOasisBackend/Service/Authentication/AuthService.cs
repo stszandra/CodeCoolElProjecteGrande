@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using OfferOasisBackend.Model;
 
 namespace OfferOasisBackend.Service.Authentication;
 
 public class AuthService : IAuthService
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<User> _userManager;
     private ITokenService _tokenService;
 
-    public AuthService(UserManager<IdentityUser> userManager, ITokenService tokenService)
+    public AuthService(UserManager<User> userManager, ITokenService tokenService)
     {
         _userManager = userManager;
         _tokenService = tokenService;
@@ -15,9 +16,9 @@ public class AuthService : IAuthService
 
     public async Task<AuthResult> RegisterAsync(string email, string username, string password)
     {
-        var user = new IdentityUser { UserName = username, Email = email };
+        var user = new User{ UserName = username, Email = email };
         var result = await _userManager.CreateAsync(
-            new IdentityUser { UserName = username, Email = email }, password);
+            new User { UserName = username, Email = email }, password);
 
         if (!result.Succeeded)
         {
@@ -26,7 +27,7 @@ public class AuthService : IAuthService
         
         await _userManager.AddToRoleAsync(user, "User"); // Adding the user to a role
 
-        return new AuthResult(true, email, username, "");
+        return new AuthResult(true, email, username,"");
     }
 
     public async Task<AuthResult> LoginAsync(string email, string password)
