@@ -1,22 +1,14 @@
 ﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Identity;
 
 namespace OfferOasisBackend.Model;
 
-public abstract class User
+public class User: IdentityUser
 {
-    public int Id { get;  }
-    private string FirstName { get; }
-    private string LastName { get; }
-    private string Address { get; }
-    private string Password { get; }
-    private string Email { get; }
-    protected User(int id, string firstName, string lastName, string address, string password, string email)
-    {
-        Id = id;
-        FirstName = firstName;
-        LastName = lastName;
-        Address = address;
-        Password = password;
-        Email = email;
-    }
+   // public int Id { get;  }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string? Address { get; set; }
+    //private string Password { get; }
+    //private string Email { get; }
 }
