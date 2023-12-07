@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OfferOasisBackend.Model;
 using OfferOasisBackend.Models;
 
 namespace OfferOasisBackend.Data;
 
-public class OasisContext : DbContext 
+public class OasisContext : IdentityDbContext<User, IdentityRole, string>
 {
     public DbSet<Product?> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -51,6 +53,8 @@ public class OasisContext : DbContext
         builder.Entity<Message>()
             .HasIndex(m => m.Id)
             .IsUnique();
+        
+        base.OnModelCreating(builder);
    
     }
 }
