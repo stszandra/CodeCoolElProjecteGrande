@@ -35,7 +35,7 @@ public class AuthControllerIntegrationTests
             // Arrange
             Random random = new Random();
             var userNumber=random.Next(1, 10000);
-            var newUser = new RegistrationRequest($"user{userNumber}@gmail.com",$"user"+userNumber.ToString(), "password123");
+            var newUser = new RegistrationRequest($"user{userNumber}@gmail.com",$"user"+userNumber.ToString(), "password123","XXX","YYY","CCC");
             var jsonString = JsonSerializer.Serialize(newUser);
             var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
         
