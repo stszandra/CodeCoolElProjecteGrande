@@ -8,7 +8,7 @@ public class basicUser : User
     private List<Order> _previousOrders;
     private List<Rating> _ratings;
     
-    public basicUser(int id, string firstName, string lastName, string address, string password, string email) : base(id, firstName, lastName, address, password, email)
+    public basicUser(int id, string firstName, string lastName, string address, string password, string email) : base()
     {
     }
     
