@@ -6,6 +6,11 @@ namespace OfferOasisBackend.Service.Message;
 
 public class MessageRepository :IMessageRepository
 {
+    public MessageRepository(OasisContext oasisContext)
+    {
+        _oasisContext = oasisContext;
+    }
+
     private readonly OasisContext _oasisContext;
     public Task<Model.Message?> GetById(int id)
     {
