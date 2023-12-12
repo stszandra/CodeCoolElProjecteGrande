@@ -3,7 +3,7 @@ import { useEffect,useState } from 'react';
 
 export default function Navbar({ ...props }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const[name,setUserName]=useState(localStorage.getItem("userName"))
+  const name=localStorage.getItem("userName");
   const location = useLocation();
   useEffect(() => {
     setToken(localStorage.getItem('token'))
