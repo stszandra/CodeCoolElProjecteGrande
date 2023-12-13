@@ -11,16 +11,12 @@ public class OrderDetails
   
     public decimal ProductPrice { get; set; }
 
-    public OrderDetails(int orderDetailsId,int productId,int orderId,int quantity)
+    public OrderDetails(int orderDetailsId, int productId, int orderId, int quantity, decimal productPrice)
     {
         OrderDetailsId = orderDetailsId;
         ProductId = productId;
         OrderId = orderId;
         Quantity = quantity;
-    }
-
-    public OrderDetails()
-    {
-        
+        ProductPrice = productPrice;
     }
 }

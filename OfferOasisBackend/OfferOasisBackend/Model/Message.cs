@@ -7,7 +7,7 @@ public class Message
     public string  Email { get; set; }
     public string Content { get; set; }
     
-    public Message(int id,string userName, string email, string content)
+    public Message(int id, string userName, string email, string content)
     {
         Id = id;
         UserName = userName;

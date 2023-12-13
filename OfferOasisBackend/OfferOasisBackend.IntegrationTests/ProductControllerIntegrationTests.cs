@@ -74,7 +74,7 @@ public class ProductControllerIntegrationTests
         // Arrange
         Random random = new Random();
         var productNumber = random.Next(1, 10000);
-        var newProduct = new Product(0, $"product {productNumber}", "Electronics", 200, 500,
+        var newProduct = new Product(0, $"product {productNumber}", ProductType.Console, 200, 500,
             "https://example.com/images/bluetooth-speaker.jpg");
         var jsonString = JsonSerializer.Serialize(newProduct);
         var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");

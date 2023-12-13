@@ -3,12 +3,10 @@
 public enum ProductType
 {
     Notebook,
-    Alaplap,
-    Processzor,
-    Videókártya,
+    Processor,
+    VGA,
     SSD,
-    Memória,
-    Tápegység,
+    Memory,
     Monitor,
-    Konzol
+    Console
 }
