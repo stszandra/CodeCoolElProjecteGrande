@@ -27,7 +27,7 @@ public class AuthService : IAuthService
         
         await _userManager.AddToRoleAsync(user, "User"); // Adding the user to a role
 
-        return new AuthResult(true, email, username,"");
+        return new AuthResult(true, email, username, "", "");
     }
 
     public async Task<AuthResult> LoginAsync(string email, string password)
@@ -57,25 +57,25 @@ public class AuthService : IAuthService
         
         var accessToken = _tokenService.CreateToken(managedUser, role);
 
-        return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
+        return new AuthResult(true, managedUser.Email, managedUser.UserName, managedUser.Id, accessToken);
     }
 
     private static AuthResult InvalidEmail(string email)
     {
-        var result = new AuthResult(false, email, "", "");
+        var result = new AuthResult(false, email, "", "", "");
         result.ErrorMessages.Add("Bad credentials", "Invalid email");
         return result;
     }
 
     private static AuthResult InvalidPassword(string email, string userName)
     {
-        var result = new AuthResult(false, email, userName, "");
+        var result = new AuthResult(false, email, userName, "", "");
         result.ErrorMessages.Add("Bad credentials", "Invalid password");
         return result;
     }
     private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
     {
-        var authResult = new AuthResult(false, email, username, "");
+        var authResult = new AuthResult(false, email, username, "", "");
 
         foreach (var error in result.Errors)
         {
@@ -123,25 +123,25 @@ public class AuthService : IAuthService
             }
         }
 
-        return new AuthResult(true, user.Email, user.UserName, "");
+        return new AuthResult(true, user.Email, user.UserName, "", "");
     }
 
     private AuthResult UserNotFound()
     {
-        var result = new AuthResult(false, "", "", "");
+        var result = new AuthResult(false, "", "", "", "");
         result.ErrorMessages.Add("User not found", "User with the provided data was not found.");
         return result;
     }
     private AuthResult RoleAdditionFailed(string email, string roleName)
     {
-        var result = new AuthResult(false, email, "", "");
+        var result = new AuthResult(false, email, "", "", "");
         result.ErrorMessages.Add("Role addition failed", $"Failed to add the user to the role '{roleName}'.");
         return result;
     }
 
     private AuthResult RoleRemovalFailed(string email, string roleName)
     {
-        var result = new AuthResult(false, email, "", "");
+        var result = new AuthResult(false, email, "", "", "");
         result.ErrorMessages.Add("Role removal failed", $"Failed to remove the user from the role '{roleName}'.");
         return result;
     }
