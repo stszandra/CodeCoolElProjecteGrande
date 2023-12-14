@@ -46,7 +46,7 @@ public class ProductController : ControllerBase
         var success = await _productRepository.Add(product);
         if (success)
         {
-            _logger.LogInformation($"Created product: {product.Name}");
+            _logger.LogInformation($"Created product: {product.Name}, {product.Id}");
             return CreatedAtAction(nameof(AddProduct), new { id = product.Id }, product);
         }
         _logger.LogError($"Could not create product {product.Name}");
