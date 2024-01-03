@@ -36,7 +36,14 @@ public class OrderController : ControllerBase
         var totalPrice = 0m;
         foreach (var orderDetail in orderRequest.ListOfOrderDetails)
         {
+            var product = _productRepository.GetById(orderDetail.ProductId).Result;
+            if (orderDetail.Quantity > product.QuantityInStock)
+            {
+                _logger.LogError($"Not enough {product.Name} in stock (ordered: {orderDetail.Quantity}, in stock: {product.QuantityInStock})");
+                return BadRequest($"Not enough {product.Name} in stock (ordered: {orderDetail.Quantity}, in stock: {product.QuantityInStock})");
+            }
             totalPrice += orderDetail.ProductPrice * orderDetail.Quantity;
+            await _productRepository.UpdateQuantityInStockAsync(orderDetail.ProductId, orderDetail.Quantity);
         }
         
         // create order
@@ -48,11 +55,9 @@ public class OrderController : ControllerBase
         {
             _logger.LogError($"Could not add order");
             return NotFound($"Could not add order");
-            
         }
         
         _logger.LogInformation($"Created order: {addedOrder.Id}");
-        
         
         // Applying newly created orderId to the orderDetails
         foreach (var orderDetail in orderRequest.ListOfOrderDetails)
@@ -65,12 +70,7 @@ public class OrderController : ControllerBase
                 return NotFound($"Could not add order detail {orderDetail.OrderDetailId}");
             }
         }
-        // TODO: productRepóban quantity kivonása
         
         return Ok($"Order with ID {addedOrder.Id} added to DB with details.");
-    
-    
-       
-    
     }
 }
