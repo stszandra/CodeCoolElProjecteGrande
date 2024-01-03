@@ -52,4 +52,35 @@ public class ProductRepository : IProductRepository
 
         return productToRemove;
     }
+    
+    // public async Task<Product> UpdateProductAsync(Product updatedProduct)
+    // {
+    //     var existingProduct = await GetById(updatedProduct.Id);
+    //
+    //     if (existingProduct == null) return existingProduct;
+    //
+    //     existingProduct.Name = updatedProduct.Name;
+    //     existingProduct.Price = updatedProduct.Price;
+    //     existingProduct.ProductType = updatedProduct.ProductType;
+    //     existingProduct.ProductTypeString = Enum.GetName(typeof(ProductType), updatedProduct.ProductType);
+    //     existingProduct.QuantityInStock = updatedProduct.QuantityInStock;
+    //     existingProduct.ImageUrl = updatedProduct.ImageUrl;
+    //     
+    //     await _oasisContext.SaveChangesAsync();
+    //
+    //     return existingProduct;
+    // }
+    
+    public async Task<Product> UpdateQuantityInStockAsync(int productId, int toSubtract)
+    {
+        var existingProduct = await GetById(productId);
+
+        if (existingProduct == null) return existingProduct;
+        
+        existingProduct.QuantityInStock -= toSubtract;
+        
+        await _oasisContext.SaveChangesAsync();
+
+        return existingProduct;
+    }
 }
