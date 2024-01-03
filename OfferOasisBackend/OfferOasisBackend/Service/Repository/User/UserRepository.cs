@@ -1,32 +1,55 @@
-﻿using OfferOasisBackend.Model;
-using OfferOasisBackend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OfferOasisBackend.Data;
+using OfferOasisBackend.Model;
 
 namespace OfferOasisBackend.Service;
 
 public class UserRepository : IUserRepository
 {
-    public string GetAllUsersTest()
+    private readonly OasisContext _oasisContext;
+
+    public UserRepository(OasisContext oasisContext)
     {
-        return "A list of all the users.";
+        _oasisContext = oasisContext;
+    }
+
+    public async Task<User?> GetById(int id)
+    {
+        return await _oasisContext.Users.FindAsync(id);
     }
     
-    public async Task<User> GetById(int id)
+    public async Task<IEnumerable<User?>> GetAll()
     {
-        return null;
+     
+        return await _oasisContext.Users.ToListAsync();
     }
-
-    public async Task<IEnumerable<User>> GetAll()
+    
+    public async Task<bool> Add(User user)
     {
-        return null;
+        bool success = true;
+        try
+        {
+            await _oasisContext.AddAsync(user);
+            await _oasisContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            success = false;
+        }
+
+        return success;
     }
-
-    public async Task<bool> Add(User entity)
+    
+    public async Task<User?> Remove(int id)
     {
-        return true;
-    }
+     
+        var userToRemove = await GetById(id);
 
-    public Task<User?> Remove(int id)
-    {
-        return null;
+        if (userToRemove == null) return userToRemove;
+        _oasisContext.Remove(userToRemove);
+        await _oasisContext.SaveChangesAsync();
+
+        return userToRemove;
     }
 }

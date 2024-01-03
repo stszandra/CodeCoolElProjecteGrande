@@ -2,7 +2,7 @@
 
 namespace OfferOasisBackend.Service;
 
-public interface IOrderDetailsRepository : IGenericRepository<OrderDetails>
+public interface IOrderDetailRepository : IGenericRepository<OrderDetail>
 {
     
 }

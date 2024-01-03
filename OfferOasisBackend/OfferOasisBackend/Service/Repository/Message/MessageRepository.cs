@@ -1,27 +1,28 @@
+using Microsoft.EntityFrameworkCore;
 using OfferOasisBackend.Data;
-using OfferOasisBackend.Model;
-using OfferOasisBackend.Models;
 
-namespace OfferOasisBackend.Service.Message;
+namespace OfferOasisBackend.Service.Repository.Message;
 
 public class MessageRepository :IMessageRepository
 {
+    private readonly OasisContext _oasisContext;
+
     public MessageRepository(OasisContext oasisContext)
     {
         _oasisContext = oasisContext;
     }
 
-    private readonly OasisContext _oasisContext;
-    public Task<Model.Message?> GetById(int id)
+    public async Task<Model.Message?> GetById(int id)
     {
-        throw new NotImplementedException();
+        return await _oasisContext.Messages.FindAsync(id);
     }
-
-    public Task<IEnumerable<Model.Message>> GetAll()
+    
+    public async Task<IEnumerable<Model.Message?>> GetAll()
     {
-        throw new NotImplementedException();
+     
+        return await _oasisContext.Messages.ToListAsync();
     }
-
+    
     public async Task<bool> Add(Model.Message message)
     {
         bool success = true;
@@ -38,9 +39,16 @@ public class MessageRepository :IMessageRepository
 
         return success;
     }
-
-    public Task<Model.Message?> Remove(int id)
+    
+    public async Task<Model.Message?> Remove(int id)
     {
-        throw new NotImplementedException();
+     
+        var messageToRemove = await GetById(id);
+
+        if (messageToRemove == null) return messageToRemove;
+        _oasisContext.Remove(messageToRemove);
+        await _oasisContext.SaveChangesAsync();
+
+        return messageToRemove;
     }
 }

@@ -1,29 +1,55 @@
-﻿using OfferOasisBackend.Model;
-using OfferOasisBackend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OfferOasisBackend.Data;
+using OfferOasisBackend.Model;
 
 namespace OfferOasisBackend.Service;
 
 public class OrderRepository : IOrderRepository
 {
-    private readonly List<string> _orders = new();
+    private readonly OasisContext _oasisContext;
+
+    public OrderRepository(OasisContext oasisContext)
+    {
+        _oasisContext = oasisContext;
+    }
+
+    public async Task<Order?> GetById(int id)
+    {
+        return await _oasisContext.Orders.FindAsync(id);
+    }
     
-    public Task<Order> GetById(int id)
+    public async Task<IEnumerable<Order?>> GetAll()
     {
-        return null;
+     
+        return await _oasisContext.Orders.ToListAsync();
     }
-
-    public Task<IEnumerable<Order>> GetAll()
+    
+    public async Task<bool> Add(Order order)
     {
-        return null;
+        bool success = true;
+        try
+        {
+            await _oasisContext.AddAsync(order);
+            await _oasisContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            success = false;
+        }
+
+        return success;
     }
-
-    public async Task<bool> Add(Order entity)
+    
+    public async Task<Order?> Remove(int id)
     {
-        return true;
-    }
+     
+        var orderToRemove = await GetById(id);
 
-    public Task<Order?> Remove(int id)
-    {
-        return null;
+        if (orderToRemove == null) return orderToRemove;
+        _oasisContext.Remove(orderToRemove);
+        await _oasisContext.SaveChangesAsync();
+
+        return orderToRemove;
     }
 }

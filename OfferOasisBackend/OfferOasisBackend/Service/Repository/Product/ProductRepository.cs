@@ -18,7 +18,7 @@ public class ProductRepository : IProductRepository
         return await _oasisContext.Products.FindAsync(id);
     }
     
-    public async Task<IEnumerable<Product>> GetAll()
+    public async Task<IEnumerable<Product?>> GetAll()
     {
      
         return await _oasisContext.Products.ToListAsync();
