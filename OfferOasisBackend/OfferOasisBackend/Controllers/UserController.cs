@@ -16,10 +16,4 @@ public class UserController : ControllerBase
         _logger = logger;
         _userRepository = userRepository;
     }
-
-    [HttpGet(Name = "GetAllTest")]
-    public IActionResult GetAllTest()
-    {
-        return Ok(_userRepository.GetAllUsersTest());
-    }
 }
