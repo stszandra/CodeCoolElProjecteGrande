@@ -1,19 +1,18 @@
-using OfferOasisBackend.Models;
 
 namespace OfferOasisBackend.Model;
 
-public class OrderDetails
+public class OrderDetail
 {
-    public int OrderDetailsId { get; set; }
+    public int OrderDetailId { get; set; }
     public int ProductId { get; set; }
     public int OrderId { get; set; }
     public int Quantity { get; set; }
   
     public decimal ProductPrice { get; set; }
 
-    public OrderDetails(int orderDetailsId, int productId, int orderId, int quantity, decimal productPrice)
+    public OrderDetail(int orderDetailId, int productId, int orderId, int quantity, decimal productPrice)
     {
-        OrderDetailsId = orderDetailsId;
+        OrderDetailId = orderDetailId;
         ProductId = productId;
         OrderId = orderId;
         Quantity = quantity;
