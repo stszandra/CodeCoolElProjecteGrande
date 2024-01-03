@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OfferOasisBackend.Model;
-using OfferOasisBackend.Models;
-using OfferOasisBackend.Service.Message;
+using OfferOasisBackend.Service.Repository.Message;
 
 
 namespace OfferOasisBackend.Controllers;
