@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OfferOasisBackend.Contract;
 using OfferOasisBackend.Model;
-using OfferOasisBackend.Models;
 using OfferOasisBackend.Service;
 
 namespace OfferOasisBackend.Controllers;
@@ -13,35 +13,34 @@ public class OrderController : ControllerBase
     private readonly ILogger<OrderController> _logger;
     private IOrderRepository _orderRepository;
     private IProductRepository _productRepository;
-    private IOrderDetailsRepository _orderDetailsRepository;
+    private IOrderDetailRepository _orderDetailRepository;
 
 
-    public OrderController(ILogger<OrderController> logger, IOrderRepository orders, IOrderDetailsRepository orderDetailsRepository, IProductRepository productRepository)
+    public OrderController(ILogger<OrderController> logger, IOrderRepository orders, IOrderDetailRepository orderDetailRepository, IProductRepository productRepository)
     {
         _logger = logger;
         _orderRepository = orders;
-        _orderDetailsRepository = orderDetailsRepository;
+        _orderDetailRepository = orderDetailRepository;
         _productRepository = productRepository;
     }
 
     [HttpGet()]
-    public ActionResult<IEnumerable<Order>> GetOrders()
+    public async Task<ActionResult<List<Order>>> GetAllOrders()
     {
-        return Ok(_orderRepository.Test());
+        return Ok(await _orderRepository.GetAll());
     }
     
     [HttpPost()]
-    public async Task<IActionResult> AddOrder(List<OrderDetails> listOfOrderDetails, ShippingType shippingType, string userId, string shippingAddress, string billingAddress)
+    public async Task<IActionResult> AddOrder([FromBody] OrderRequest orderRequest)
     {
-        // totalPrice -- list of order details-ből
         var totalPrice = 0m;
-        foreach (var orderDetail in listOfOrderDetails)
+        foreach (var orderDetail in orderRequest.ListOfOrderDetails)
         {
             totalPrice += orderDetail.ProductPrice * orderDetail.Quantity;
         }
         
-        // order létrehozása
-        var addedOrder = new Order(0, userId, billingAddress, shippingAddress, shippingType, totalPrice);
+        // create order
+        var addedOrder = new Order(0, orderRequest.UserId, orderRequest.BillingAddress, orderRequest.ShippingAddress, orderRequest.ShippingType, totalPrice);
         var success = await _orderRepository.Add(addedOrder);
         
         
@@ -52,28 +51,26 @@ public class OrderController : ControllerBase
             
         }
         
-        // var createdOrder = CreatedAtAction(nameof(AddOrder), new { id = addedOrder.Id }, addedOrder); // TODO: SQL által adott ID?
         _logger.LogInformation($"Created order: {addedOrder.Id}");
         
         
-        // List-ből egyesével recordok (SQL által adott orderID-val ellátva)
-        foreach (var orderDetail in listOfOrderDetails)
+        // Applying newly created orderId to the orderDetails
+        foreach (var orderDetail in orderRequest.ListOfOrderDetails)
         {
             orderDetail.OrderId = addedOrder.Id;
-            var successfullyAddedDetail = await _orderDetailsRepository.Add(orderDetail);
+            var successfullyAddedDetail = await _orderDetailRepository.Add(orderDetail);
             if (!successfullyAddedDetail)
             {
-                _logger.LogError($"Could not add order detail");
-                return NotFound($"Could not add order detail");
+                _logger.LogError($"Could not add order detail {orderDetail.OrderDetailId}");
+                return NotFound($"Could not add order detail {orderDetail.OrderDetailId}");
             }
         }
         // TODO: productRepóban quantity kivonása
         
         return Ok($"Order with ID {addedOrder.Id} added to DB with details.");
-
-
+    
+    
        
-
+    
     }
- 
 }
