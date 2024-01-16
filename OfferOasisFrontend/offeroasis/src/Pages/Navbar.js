@@ -27,7 +27,7 @@ export default function Navbar({ ...props }) {
             <ul className="flex font-semibold justify-between">
               <li className="md:px-4 md:py-2 text-indigo-500"><a href="/about">OfferOasis</a></li>
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/products">Products</a></li>
-              <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/information">My Orders/Info</a></li>
+              <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/cart">My Cart/Info</a></li>
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/contact">Contact</a></li>
             </ul>
           </div>
