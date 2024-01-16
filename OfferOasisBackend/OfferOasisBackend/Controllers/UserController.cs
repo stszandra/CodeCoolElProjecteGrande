@@ -4,7 +4,7 @@ using OfferOasisBackend.Service;
 
 namespace OfferOasisBackend.Controllers;
 
-[Authorize]
+//TODO [Authorize]
 [ApiController, Route("/users")]
 public class UserController : ControllerBase
 {
@@ -15,5 +15,10 @@ public class UserController : ControllerBase
     {
         _logger = logger;
         _userRepository = userRepository;
+    }
+    [HttpGet]
+    public IActionResult GetByEmail(string email)
+    {
+        return Ok(_userRepository.GetByEmail(email));
     }
 }
