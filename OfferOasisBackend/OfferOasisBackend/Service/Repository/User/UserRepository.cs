@@ -52,4 +52,8 @@ public class UserRepository : IUserRepository
 
         return userToRemove;
     }
+    public async Task<User?> GetByEmail(string email)
+    {
+        return _oasisContext.Users.Where(u => u.Email == email).First();
+    }
 }
