@@ -7,8 +7,12 @@ function App() {
   useEffect(() => {
     fetch("https://localhost:7193/products")
       .then(resp => resp.json())
+      .then(data => data.forEach(product => {
+        product.quantity = 0;
+      }))
       .then(data => setProducts(data))
   }, [])
+  
   const addProductsToCart = (product) => {
     if (localStorage.getItem('products') === null) {
       let cart = [];
