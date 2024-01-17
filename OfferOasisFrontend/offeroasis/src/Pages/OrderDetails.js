@@ -6,16 +6,18 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function OrderDetails() {
   const token = localStorage.getItem('token');
-  const products = localStorage.getItem('products');
+  // const products = localStorage.getItem('products');
   const email = localStorage.getItem('email');
   const replacedEmail = email.replace('@', '%40');
   const [userData, setUserData] = useState([]);
   const [gProducts, setGProducts] = useState([]);
 
+  let groupedProducts = [];
+  if (localStorage.getItem('products')) {
+   groupedProducts = JSON.parse(localStorage.getItem('products'));
+  }
+  // TODO: amennyiben az adott product quantityje 0, akkor azt vegye ki az arrayből
 
-  //const [orderData, setOrderData] = useState({});
-
-  const groupedProducts = JSON.parse(products);
   //groupedProducts with quantity
   // const groupedProducts = cart.reduce((accumulator, currentProduct) => {
   //   const existingProduct = accumulator.find((product) => product.id === currentProduct.id);
@@ -29,18 +31,12 @@ export default function OrderDetails() {
   // }, []);
   
 
-
-  //console.log(orderData);
   useEffect(() => {
     fetch(`https://localhost:7193/users?email=${replacedEmail}`)
       .then(resp => resp.json())
       .then(data => setUserData(data))
     setGProducts(groupedProducts);
   }, [])
-
-
-
-
 
   const sendOrderDetailsData = async (event) => {
     event.preventDefault();
@@ -63,18 +59,21 @@ export default function OrderDetails() {
 
           )
         });
-                       {/* TODO: error handling */}
-      if (response.ok) {
 
-        console.log("Sikerült");
+      if(response.ok){
+        toast('You succesfully placed your order');
+
+        setGProducts([]);
+        localStorage.removeItem('products')
       } else {
-       console.log("nem sikerült")
-
+        toast('Order placement failed, please contact our helpdesk!')
       }
+
+
     } catch (error) {
       console.error('An error occurred:', error);
     }
-    toast('You succesfully placed your order')
+    
   };
 
 
@@ -84,14 +83,11 @@ export default function OrderDetails() {
   const totalPrice = calculateTotalPrice(groupedProducts);
 
   function changeQuantity(e) {
-    console.log(e.target.id);
-    // e.target.valueAsNumber
     groupedProducts.find(o => o.id == e.target.id).quantity = e.target.valueAsNumber;
     setGProducts(groupedProducts);
 
     localStorage.setItem('products', JSON.stringify(groupedProducts));
 
-    console.log(groupedProducts.find(o => o.id == e.target.id));
   }
 
   return (
@@ -118,7 +114,7 @@ export default function OrderDetails() {
                         ${product.price} <span className="text-red-300 line-through"> </span>
                       </p>
                        {/* TODO: ne lehessen mínuszban */}
-                      <input id={product.id} onChange={(e) => changeQuantity(e)} type='number' defaultValue={product.quantity}/> 
+                      <input id={product.id} onChange={(e) => changeQuantity(e)} type='number' min='0' defaultValue={product.quantity}/> 
                       <p className="text-base xl:text-lg leading-6 text-gray-800">{product.quantity}{product.quantity > 1 ? 'pcs' : 'pc'}</p>
                       <p className="text-base xl:text-lg font-semibold leading-6 text-gray-800">${product.quantity * product.price}</p>
                     </div>
@@ -177,7 +173,7 @@ export default function OrderDetails() {
                   </div>
                 </div>
                 <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800" onClick={(event) => sendOrderDetailsData(event)}>Place order</button>
+                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800" hidden={groupedProducts.length==0} onClick={(event) => sendOrderDetailsData(event)}>{groupedProducts.length>0?"Place order":"Cart is empty"}</button>
                 <ToastContainer/>
                 </div>
               </div>
