@@ -10,27 +10,38 @@ export default function OrderDetails() {
   const email = localStorage.getItem('email');
   const replacedEmail = email.replace('@', '%40');
   const [userData, setUserData] = useState([]);
-  const [orderData, setOrderData] = useState({});
+  const [gProducts, setGProducts] = useState([]);
 
-  const cart = JSON.parse(products);
+
+  //const [orderData, setOrderData] = useState({});
+
+  const groupedProducts = JSON.parse(products);
   //groupedProducts with quantity
-  const groupedProducts = cart.reduce((accumulator, currentProduct) => {
-    const existingProduct = accumulator.find((product) => product.id === currentProduct.id);
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    }
-    else {
-      const newProduct = { ...currentProduct, quantity: 1 }; accumulator.push(newProduct);
-    }
-    return accumulator;
-  }, []);
+  // const groupedProducts = cart.reduce((accumulator, currentProduct) => {
+  //   const existingProduct = accumulator.find((product) => product.id === currentProduct.id);
+  //   if (existingProduct) {
+  //     existingProduct.quantity += 1;
+  //   }
+  //   else {
+  //     const newProduct = { ...currentProduct, quantity: 1 }; accumulator.push(newProduct);
+  //   }
+  //   return accumulator;
+  // }, []);
+  
 
-  console.log(orderData);
+
+  //console.log(orderData);
   useEffect(() => {
     fetch(`https://localhost:7193/users?email=${replacedEmail}`)
       .then(resp => resp.json())
       .then(data => setUserData(data))
+    setGProducts(groupedProducts);
   }, [])
+
+
+
+
+
   const sendOrderDetailsData = async (event) => {
     event.preventDefault();
     // Send a POST request to the backend with the form data
@@ -52,7 +63,7 @@ export default function OrderDetails() {
 
           )
         });
-
+                       {/* TODO: error handling */}
       if (response.ok) {
 
         console.log("Sikerült");
@@ -70,7 +81,18 @@ export default function OrderDetails() {
   function calculateTotalPrice(cart) {
     return groupedProducts.reduce((total, product) => total + product.price * product.quantity, 0);
   }
-  const totalPrice = calculateTotalPrice(cart);
+  const totalPrice = calculateTotalPrice(groupedProducts);
+
+  function changeQuantity(e) {
+    console.log(e.target.id);
+    // e.target.valueAsNumber
+    groupedProducts.find(o => o.id == e.target.id).quantity = e.target.valueAsNumber;
+    setGProducts(groupedProducts);
+
+    localStorage.setItem('products', JSON.stringify(groupedProducts));
+
+    console.log(groupedProducts.find(o => o.id == e.target.id));
+  }
 
   return (
     <div className="h-auto">
@@ -79,7 +101,7 @@ export default function OrderDetails() {
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
               <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer’s Cart</p>
-              {groupedProducts.map(product =>
+              {gProducts.map(product =>
                 <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row  items-start md:items-center space-y-4  md:space-x-6 xl:space-x-8 w-full ">
                   <div className="w-full md:w-40">
                     <img className="w-full hidden md:block" src={product.imageUrl} alt="dress" />
@@ -95,6 +117,8 @@ export default function OrderDetails() {
                       <p className="text-base xl:text-lg leading-6">
                         ${product.price} <span className="text-red-300 line-through"> </span>
                       </p>
+                       {/* TODO: ne lehessen mínuszban */}
+                      <input id={product.id} onChange={(e) => changeQuantity(e)} type='number' defaultValue={product.quantity}/> 
                       <p className="text-base xl:text-lg leading-6 text-gray-800">{product.quantity}{product.quantity > 1 ? 'pcs' : 'pc'}</p>
                       <p className="text-base xl:text-lg font-semibold leading-6 text-gray-800">${product.quantity * product.price}</p>
                     </div>
