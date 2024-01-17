@@ -4,17 +4,27 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     fetch("https://localhost:7193/products")
       .then(resp => resp.json())
-      .then(data => data.forEach(product => {
-        product.quantity = 0;
-      }))
-      .then(data => setProducts(data))
+      .then(data => {
+        data.forEach(product => {
+          product.quantity = 1;
+          setProducts(data)})
+        })
+      
+      
   }, [])
-  
+
+  //console.log(products);
+
   const addProductsToCart = (product) => {
+    //product.quantity++;
+    console.log(product);
+
     if (localStorage.getItem('products') === null) {
+      // product.quantity++
       let cart = [];
       cart.push(product);
       localStorage.setItem('products', JSON.stringify(cart));
@@ -22,12 +32,27 @@ function App() {
     }
     else {
       let cart = JSON.parse(localStorage.getItem('products'));
-      for (let i = 0; i < cart.length; i++) {
-        if (cart[i].id==product.id) {
-        cart[i].quantity=cart[i].quantity+1;
-        }
+      
+      let productAlreadyInCart = cart.find(p => p.id == product.id)
+
+      if(productAlreadyInCart != undefined){
+        productAlreadyInCart.quantity++;
+      } else {
+        cart.push(product);
       }
-      cart.push(product);
+
+
+      // for (let i = 0; i < cart.length; i++) {
+      //   if (cart[i].id==product.id) 
+      //   {
+      //   cart[i].quantity=cart[i].quantity+1;
+      //   } 
+      //   else 
+      //   {
+      //     cart.push(product);
+      //   }
+      //}
+
       localStorage.setItem('products', JSON.stringify(cart));
       console.log(cart);
     }
