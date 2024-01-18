@@ -11,6 +11,7 @@ export default function Navbar({ ...props }) {
 
   const removeToken = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("products");
   }
   return (
     <>
@@ -25,7 +26,7 @@ export default function Navbar({ ...props }) {
           </div>
           <div className="text-gray-500 order-3 w-full md:w-auto md:order-2 flex items-center">
             <ul className="flex font-semibold justify-between">
-              <li className="md:px-4 md:py-2 text-indigo-500"><a href="/about">OfferOasis</a></li>
+              <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/about">OfferOasis</a></li>
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/products">Products</a></li>
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/cart">My Cart/Info</a></li>
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/contact">Contact</a></li>
@@ -51,10 +52,9 @@ export default function Navbar({ ...props }) {
     </button>
   </div>
 </div>
-        </div>
+  </div>
       </nav>
-      <Outlet />
-
+      <Outlet/>
       <footer className="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
         <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="
