@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 
 
+
 export default function OrderDetails() {
   const token = localStorage.getItem('token');
   // const products = localStorage.getItem('products');
@@ -14,22 +15,8 @@ export default function OrderDetails() {
 
   let groupedProducts = [];
   if (localStorage.getItem('products')) {
-   groupedProducts = JSON.parse(localStorage.getItem('products'));
+    groupedProducts = JSON.parse(localStorage.getItem('products'));
   }
-  // TODO: amennyiben az adott product quantityje 0, akkor azt vegye ki az arrayből
-
-  //groupedProducts with quantity
-  // const groupedProducts = cart.reduce((accumulator, currentProduct) => {
-  //   const existingProduct = accumulator.find((product) => product.id === currentProduct.id);
-  //   if (existingProduct) {
-  //     existingProduct.quantity += 1;
-  //   }
-  //   else {
-  //     const newProduct = { ...currentProduct, quantity: 1 }; accumulator.push(newProduct);
-  //   }
-  //   return accumulator;
-  // }, []);
-  
 
   useEffect(() => {
     fetch(`https://localhost:7193/users?email=${replacedEmail}`)
@@ -50,19 +37,18 @@ export default function OrderDetails() {
           },
           body: JSON.stringify(
             {
-                  listOfOrderDetails:groupedProducts.map(orderDetail => ({ orderId: 0, orderDetailId: 0, productId: orderDetail.id, quantity: orderDetail.quantity, productPrice: orderDetail.price })),
-                  shippingType: 0,
-                  userId:userData.result.id,
-                  shippingAddress: userData.result.address,
-                  billingAddress: userData.result.address
-                }
+              listOfOrderDetails: groupedProducts.map(orderDetail => ({ orderId: 0, orderDetailId: 0, productId: orderDetail.id, quantity: orderDetail.quantity, productPrice: orderDetail.price })),
+              shippingType: 0,
+              userId: userData.result.id,
+              shippingAddress: userData.result.address,
+              billingAddress: userData.result.address
+            }
 
           )
         });
-
-      if(response.ok){
+        
+      if (response.ok) {
         toast('You succesfully placed your order');
-
         setGProducts([]);
         localStorage.removeItem('products')
       } else {
@@ -73,9 +59,8 @@ export default function OrderDetails() {
     } catch (error) {
       console.error('An error occurred:', error);
     }
-    
-  };
 
+  };
 
   function calculateTotalPrice(cart) {
     return groupedProducts.reduce((total, product) => total + product.price * product.quantity, 0);
@@ -83,13 +68,16 @@ export default function OrderDetails() {
   const totalPrice = calculateTotalPrice(groupedProducts);
 
   function changeQuantity(e) {
-    groupedProducts.find(o => o.id == e.target.id).quantity = e.target.valueAsNumber;
+    groupedProducts.find(o => o.id === e.target.id).quantity = e.target.valueAsNumber;
     setGProducts(groupedProducts);
 
     localStorage.setItem('products', JSON.stringify(groupedProducts));
 
   }
-
+  function clearCart() {
+    localStorage.removeItem('products');
+    setGProducts([]);
+  }
   return (
     <div className="h-auto">
       {token ? (
@@ -97,6 +85,7 @@ export default function OrderDetails() {
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
               <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer’s Cart</p>
+              <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800" hidden={groupedProducts.length!==0}>Go to our products page to place items in the cart</p>
               {gProducts.map(product =>
                 <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row  items-start md:items-center space-y-4  md:space-x-6 xl:space-x-8 w-full ">
                   <div className="w-full md:w-40">
@@ -113,8 +102,7 @@ export default function OrderDetails() {
                       <p className="text-base xl:text-lg leading-6">
                         ${product.price} <span className="text-red-300 line-through"> </span>
                       </p>
-                       {/* TODO: ne lehessen mínuszban */}
-                      <input id={product.id} onChange={(e) => changeQuantity(e)} type='number' min='0' defaultValue={product.quantity}/> 
+                      <input id={product.id} onChange={(e) => changeQuantity(e)} type='number' min='0'  defaultValue={product.quantity} max={product.quantityInStock}/> 
                       <p className="text-base xl:text-lg leading-6 text-gray-800">{product.quantity}{product.quantity > 1 ? 'pcs' : 'pc'}</p>
                       <p className="text-base xl:text-lg font-semibold leading-6 text-gray-800">${product.quantity * product.price}</p>
                     </div>
@@ -165,23 +153,26 @@ export default function OrderDetails() {
                 <div className="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-12 md:space-y-0 md:flex-row  items-center md:items-start ">
                   <div className="flex justify-center md:justify-start  items-center md:items-start flex-col space-y-4 xl:mt-8">
                     <p className="text-base font-semibold leading-4 text-center md:text-left text-gray-800">Shipping Address</p>
-                    <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">{userData.length != 0 ? userData.result.address : 'null'}</p>
+                    <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">{userData.length !== 0 ? userData.result.address : 'null'}</p>
                   </div>
                   <div className="flex justify-center md:justify-start  items-center md:items-start flex-col space-y-4 ">
                     <p className="text-base font-semibold leading-4 text-center md:text-left text-gray-800">Billing Address</p>
-                    <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">{userData.length != 0 ? userData.result.address : 'null'}</p>
+                    <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">{userData.length !== 0 ? userData.result.address : 'null'}</p>
                   </div>
                 </div>
                 <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800" hidden={groupedProducts.length==0} onClick={(event) => sendOrderDetailsData(event)}>{groupedProducts.length>0?"Place order":"Cart is empty"}</button>
-                <ToastContainer/>
+                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800"  onClick={(event) => sendOrderDetailsData(event)} hidden={groupedProducts.length===0}>Place Order</button>
+                  <ToastContainer />
+                </div>
+                <div className="flex w-full justify-center items-center md:justify-start md:items-start">
+                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800" onClick={() => clearCart()}  hidden={groupedProducts.length===0}>Clear cart</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <div>
+        <div className='h-screen'>
           <h1 className="mb-4 text-center flex-1 justify-center text-xl font-extrabold text-gray-900 dark:text-white md:text-xl lg:text-2xl">
             <span className=" text-transparent bg-clip-text bg-gradient-to-r to-green-900 from-red-900">Dear</span> valued customer,
           </h1>
@@ -207,4 +198,3 @@ export default function OrderDetails() {
     </div>
   );
 }
-
