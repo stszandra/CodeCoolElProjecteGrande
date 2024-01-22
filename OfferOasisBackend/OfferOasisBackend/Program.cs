@@ -73,6 +73,8 @@ void AddServices()
     builder.Services.AddSingleton<ILogger<ProductController>, Logger<ProductController>>();
     builder.Services.AddScoped<IOrderRepository, OrderRepository>();
     builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+    builder.Services.AddScoped<ICartRepository, CartRepository>();
+    builder.Services.AddSingleton<ILogger<CartController>, Logger<CartController>>();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddSingleton<ILogger<MessageController>, Logger<MessageController>>();
     builder.Services.AddScoped<IMessageRepository, MessageRepository>();
