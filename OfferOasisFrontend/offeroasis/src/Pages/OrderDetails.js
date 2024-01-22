@@ -68,7 +68,7 @@ export default function OrderDetails() {
   const totalPrice = calculateTotalPrice(groupedProducts);
 
   function changeQuantity(e) {
-    groupedProducts.find(o => o.id === e.target.id).quantity = e.target.valueAsNumber;
+    groupedProducts.find(o => o.id === parseInt(e.target.id)).quantity = e.target.valueAsNumber;
     setGProducts(groupedProducts);
 
     localStorage.setItem('products', JSON.stringify(groupedProducts));
