@@ -12,6 +12,7 @@ public class OasisContext : IdentityDbContext<User, IdentityRole, string>
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderDetail> OrderDetails { get; set; }
     public DbSet<Message> Messages { get; set; }
+    public DbSet<CartDetail> CartDetails { get; set; }
 
     public OasisContext(DbContextOptions<OasisContext> options): base(options)
     {
@@ -78,8 +79,14 @@ public class OasisContext : IdentityDbContext<User, IdentityRole, string>
             b.HasMany<OrderDetail>().WithOne().HasForeignKey(o => o.ProductId).IsRequired();
         });
         
+        builder.Entity<CartDetail>()
+            .HasIndex(c => c.Id)
+            .IsUnique();
         
-   
+        builder.Entity<User>(b =>
+        {
+            b.HasMany<CartDetail>().WithOne().HasForeignKey(u => u.UserId).IsRequired();
+        });
     }
 }
 
