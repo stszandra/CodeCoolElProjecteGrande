@@ -85,7 +85,6 @@ export default function OrderDetails() {
           });
 
       if (response.ok) {
-        toast('You succesfully cleared your cart');
         localStorage.removeItem('productsInCart');
         localStorage.removeItem('cartDetails');
         setGProducts([]);
