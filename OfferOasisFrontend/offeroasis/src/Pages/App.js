@@ -8,29 +8,32 @@ function App() {
   const userCart = JSON.parse(localStorage.getItem("cartDetails"));
 
   useEffect(() => {
-    fetch("https://localhost:7193/products")
-      .then(resp => resp.json())
-      .then(data => {
-        data.forEach(p => {
-              p.quantity = 1;
-            }
-        )
-          if (localStorage.getItem("productsInCart") == [] || localStorage.getItem("productsInCart") == null && userCart != null)
-          {
-              console.log("creating products of cart based on cartDetails from SQL")
-              const productsInCart = data.filter(product => userCart.some(item => item.productId === product.id))
-                  .map(product => {
-                      const cartItem = userCart.find(item => item.productId === product.id);
-                      return {
-                          ...product,
-                          quantity: cartItem.quantity
-                      }});
+      fetch("https://localhost:7193/products")
+          .then(resp => resp.json())
+          .then(data => {
+              data.forEach(p => {
+                  p.quantity = 1;
+              })
+              cartDetails_IntoProductsInLocalStorage(userCart, data);
+              setProducts(data)
+          })
+
+          }, [])
     
-              localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
-          }
-        setProducts(data);
-        })        
-  }, [])
+    const cartDetails_IntoProductsInLocalStorage = (userCart, data) => {
+        if (localStorage.getItem("productsInCart") == [] || localStorage.getItem("productsInCart") == null && userCart != null)
+        {
+            const productsInCart = data.filter(product => userCart.some(item => item.productId === product.id))
+                .map(product => {
+                    const cartItem = userCart.find(item => item.productId === product.id);
+                    return {
+                        ...product,
+                        quantity: cartItem.quantity
+                    }});
+
+            localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
+        }
+  }
 
   const addProductsToCart = (product) => {
 
@@ -50,7 +53,7 @@ function App() {
       }
       localStorage.setItem('productsInCart', JSON.stringify(cart));
     }
-    toast(`${product.name} succesfully added to the cart!`);
+    toast(`${product.name} successfully added to the cart!`);
 
   }
   return (
