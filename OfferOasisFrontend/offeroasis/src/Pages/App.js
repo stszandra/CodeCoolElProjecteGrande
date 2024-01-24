@@ -5,27 +5,42 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [products, setProducts] = useState([]);
   const token=localStorage.getItem("token");
+  const userCart = JSON.parse(localStorage.getItem("cartDetails"));
 
   useEffect(() => {
     fetch("https://localhost:7193/products")
       .then(resp => resp.json())
       .then(data => {
-        data.forEach(product => {
-          product.quantity = 1;
-          setProducts(data)
-        })
-      })
+        data.forEach(p => {
+              p.quantity = 1;
+            }
+        )
+          if (localStorage.getItem("productsInCart") == [] || localStorage.getItem("productsInCart") == null && userCart != null)
+          {
+              console.log("creating products of cart based on cartDetails from SQL")
+              const productsInCart = data.filter(product => userCart.some(item => item.productId === product.id))
+                  .map(product => {
+                      const cartItem = userCart.find(item => item.productId === product.id);
+                      return {
+                          ...product,
+                          quantity: cartItem.quantity
+                      }});
+    
+              localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
+          }
+        setProducts(data);
+        })        
   }, [])
 
   const addProductsToCart = (product) => {
 
-    if (localStorage.getItem('products') === null) {
+    if (localStorage.getItem('productsInCart') == null) {
       let cart = [];
       cart.push(product);
-      localStorage.setItem('products', JSON.stringify(cart));
+      localStorage.setItem('productsInCart', JSON.stringify(cart));
     }
     else {
-      let cart = JSON.parse(localStorage.getItem('products'));
+      let cart = JSON.parse(localStorage.getItem('productsInCart'));
       let productAlreadyInCart = cart.find(p => p.id === product.id)
 
       if (productAlreadyInCart !== undefined) {
@@ -33,7 +48,7 @@ function App() {
       } else {
         cart.push(product);
       }
-      localStorage.setItem('products', JSON.stringify(cart));
+      localStorage.setItem('productsInCart', JSON.stringify(cart));
     }
     toast(`${product.name} succesfully added to the cart!`);
 
