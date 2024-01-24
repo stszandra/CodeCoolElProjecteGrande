@@ -3,8 +3,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 export default function OrderDetails() {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
@@ -18,6 +16,8 @@ export default function OrderDetails() {
     groupedProducts = JSON.parse(localStorage.getItem('productsInCart'));
   }
 
+  const totalPrice = calculateTotalPrice(groupedProducts);
+
   useEffect(() => {
     fetch(`https://localhost:7193/users?email=${replacedEmail}`)
       .then(resp => resp.json())
@@ -27,7 +27,6 @@ export default function OrderDetails() {
 
   const sendOrderDetailsData = async (event) => {
     event.preventDefault();
-    // Send a POST request to the backend with the form data
     try {
       const response = await fetch(`https://localhost:7193/orders`,
         {
@@ -43,10 +42,9 @@ export default function OrderDetails() {
               shippingAddress: userData.result.address,
               billingAddress: userData.result.address
             }
-
           )
         });
-        
+
       if (response.ok) {
         toast('You succesfully placed your order');
         setGProducts([]);
@@ -55,34 +53,29 @@ export default function OrderDetails() {
         toast('Order placement failed, please contact our helpdesk!')
       }
 
-
     } catch (error) {
       console.error('An error occurred:', error);
     }
-
   };
 
   function calculateTotalPrice(cart) {
     return cart.reduce((total, product) => total + product.price * product.quantity, 0);
   }
-  const totalPrice = calculateTotalPrice(groupedProducts);
 
   function changeQuantity(e) {
     groupedProducts.find(o => o.id === parseInt(e.target.id)).quantity = e.target.valueAsNumber;
     setGProducts(groupedProducts);
-
     localStorage.setItem('productsInCart', JSON.stringify(groupedProducts));
-
   }
   async function clearCart() {
     try {
       const response = await fetch(`https://localhost:7193/cart?userId=${userId}`,
-          {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
 
       if (response.ok) {
         localStorage.removeItem('productsInCart');
@@ -95,7 +88,7 @@ export default function OrderDetails() {
       console.error('An error occurred:', error);
     }
   }
-  
+
   return (
     <div className="h-auto">
       {token ? (
@@ -103,7 +96,7 @@ export default function OrderDetails() {
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
               <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer’s Cart</p>
-              <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800" hidden={groupedProducts.length!==0}>Go to our products page to place items in the cart</p>
+              <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800" hidden={groupedProducts.length !== 0}>Go to our products page to place items in the cart</p>
               {gProducts.map(product =>
                 <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row  items-start md:items-center space-y-4  md:space-x-6 xl:space-x-8 w-full ">
                   <div className="w-full md:w-40">
@@ -120,15 +113,13 @@ export default function OrderDetails() {
                       <p className="text-base xl:text-lg leading-6">
                         ${product.price} <span className="text-red-300 line-through"> </span>
                       </p>
-                      <input id={product.id} onChange={(e) => changeQuantity(e)} type='number' min='0'  defaultValue={product.quantity} max={product.quantityInStock}/> 
+                      <input id={product.id} onChange={(e) => changeQuantity(e)} type='number' min='0' defaultValue={product.quantity} max={product.quantityInStock} />
                       <p className="text-base xl:text-lg leading-6 text-gray-800">{product.quantity}{product.quantity > 1 ? 'pcs' : 'pc'}</p>
                       <p className="text-base xl:text-lg font-semibold leading-6 text-gray-800">${product.quantity * product.price}</p>
                     </div>
                   </div>
                 </div>
-
               )}
-
             </div>
             <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
               <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6   ">
@@ -144,7 +135,6 @@ export default function OrderDetails() {
                   <p className="text-base font-semibold leading-4 text-gray-600">${totalPrice}</p>
                 </div>
               </div>
-
             </div>
           </div>
           <div className="bg-gray-50 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col ">
@@ -155,10 +145,8 @@ export default function OrderDetails() {
                   <img src="https://i.ibb.co/5TSg7f6/Rectangle-18.png" alt="avatar" />
                   <div className=" flex justify-start items-start flex-col space-y-2">
                     <p className="text-base font-semibold leading-4 text-left text-gray-800">{localStorage.getItem('userName')}</p>
-
                   </div>
                 </div>
-
                 <div className="flex justify-center  md:justify-start items-center space-x-4 py-4 border-b border-gray-200 w-full">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5Z" stroke="#1F2937" strokeLinecap="round" strokeLinejoin="round" />
@@ -179,11 +167,11 @@ export default function OrderDetails() {
                   </div>
                 </div>
                 <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800"  onClick={(event) => sendOrderDetailsData(event)} hidden={groupedProducts.length===0}>Place Order</button>
+                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800" onClick={(event) => sendOrderDetailsData(event)} hidden={groupedProducts.length === 0}>Place Order</button>
                   <ToastContainer />
                 </div>
                 <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800" onClick={() => clearCart()}  hidden={groupedProducts.length===0}>Clear cart</button>
+                  <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800" onClick={() => clearCart()} hidden={groupedProducts.length === 0}>Clear cart</button>
                 </div>
               </div>
             </div>
@@ -194,7 +182,6 @@ export default function OrderDetails() {
           <h1 className="mb-4 text-center flex-1 justify-center text-xl font-extrabold text-gray-900 dark:text-white md:text-xl lg:text-2xl">
             <span className=" text-transparent bg-clip-text bg-gradient-to-r to-green-900 from-red-900">Dear</span> valued customer,
           </h1>
-
           <div className="flex" >
             <div className='w-1/2'>
               <div className=' ml-10 font-bold text-transparent bg-clip-text bg-gradient-to-r to-green-900 from-red-900 md:underline-red'>
