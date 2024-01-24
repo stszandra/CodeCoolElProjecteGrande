@@ -20,7 +20,7 @@ function App() {
 
           }, [])
     
-    const cartDetails_IntoProductsInLocalStorage = (userCart, data) => {
+  const cartDetails_IntoProductsInLocalStorage = (userCart, data) => {
         if (localStorage.getItem("productsInCart") == [] || localStorage.getItem("productsInCart") == null && userCart != null)
         {
             const productsInCart = data.filter(product => userCart.some(item => item.productId === product.id))
@@ -36,26 +36,28 @@ function App() {
   }
 
   const addProductsToCart = (product) => {
-
+      
+    // if there's no cart, create empty cart with newly added product 
     if (localStorage.getItem('productsInCart') == null) {
       let cart = [];
       cart.push(product);
       localStorage.setItem('productsInCart', JSON.stringify(cart));
     }
+    
+    // increment quantity if product is already present OR add new product
     else {
       let cart = JSON.parse(localStorage.getItem('productsInCart'));
       let productAlreadyInCart = cart.find(p => p.id === product.id)
+        
+      productAlreadyInCart !== undefined 
+          ? productAlreadyInCart.quantity++ 
+          : cart.push(product)
 
-      if (productAlreadyInCart !== undefined) {
-        productAlreadyInCart.quantity++;
-      } else {
-        cart.push(product);
-      }
       localStorage.setItem('productsInCart', JSON.stringify(cart));
     }
     toast(`${product.name} successfully added to the cart!`);
-
   }
+  
   return (
     products.length > 0 ? (
       <div>
@@ -96,7 +98,5 @@ function App() {
     )
   )
 }
-
-
 
 export default App;
