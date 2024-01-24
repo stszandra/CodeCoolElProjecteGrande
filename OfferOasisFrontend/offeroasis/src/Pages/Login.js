@@ -9,61 +9,71 @@ export default function Login() {
     });
     const SendLoginData = async (event) => {
         event.preventDefault();
-        // Send a POST request to the backend with the form data
+        
         try {
-            const response = await fetch('https://localhost:7193/Auth/Login',
-         {
+            const response = await fetch('https://localhost:7193/Auth/Login', 
+        {
                 method: 'POST',
-                headers: {
+                headers: 
+                {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
 
-            if (response.ok) {
+            if (response.ok) 
+            {
                const data = await response.json();
-               //Decode token and get role for user
-                const decodedToken = atob(data.token.split('.')[1]);
-                const tokenData = JSON.parse(decodedToken);
-                
-                localStorage.setItem("role",tokenData[`http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name`]);
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('userName',data.userName);
-                localStorage.setItem('userId',data.userId);
-                localStorage.setItem('email',data.email);
-    
-                const resp = await fetch(`https://localhost:7193/cart?userId=${data.userId}`,
-                    {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                const cartData = await resp.json();
-                
-                if (cartData.length > 0)
-                {
-                    localStorage.setItem('cartDetails', JSON.stringify(cartData));
-                }
-    
-                navigate("/products")
-            
-            } else {
-                // Registration failed, handle errors here
-                
-            }
-        } catch (error) {
+               saveUserData_toLocalStorage(data);
+               await getCartData(data.userId);
+               navigate("/products")
+            } 
+        } catch (error) 
+        {
             console.error('An error occurred:', error);
         }
     };
 
+    const saveUserData_toLocalStorage = (data) => {
+        //Decode token and get role for user
+        const decodedToken = atob(data.token.split('.')[1]);
+        const tokenData = JSON.parse(decodedToken);
+
+        localStorage.setItem("role",tokenData[`http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name`]);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userName',data.userName);
+        localStorage.setItem('userId',data.userId);
+        localStorage.setItem('email',data.email);
+    }
+    const getCartData = async (userId) => {
+        try {
+            const resp = await fetch(`https://localhost:7193/cart?userId=${userId}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            const cartData = await resp.json();
+
+            if (cartData.length > 0)
+            {
+                localStorage.setItem('cartDetails', JSON.stringify(cartData));
+            }
+            
+        } catch (error)
+        {
+            console.error('An error occurred:', error);
+        }
+    };
+    
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
-        });
-     
-    };    
+        });     
+    };
+    
     return (
       <section className=" dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
