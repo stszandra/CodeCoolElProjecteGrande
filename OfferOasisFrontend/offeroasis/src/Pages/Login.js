@@ -23,15 +23,30 @@ export default function Login() {
             if (response.ok) {
                const data = await response.json();
                //Decode token and get role for user
-            const decodedToken = atob(data.token.split('.')[1]);
-            const tokenData = JSON.parse(decodedToken);
-            
-            localStorage.setItem("role",tokenData[`http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name`]);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('userName',data.userName);
-            localStorage.setItem('email',data.email);
-
-            navigate("/products")
+                const decodedToken = atob(data.token.split('.')[1]);
+                const tokenData = JSON.parse(decodedToken);
+                
+                localStorage.setItem("role",tokenData[`http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name`]);
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userName',data.userName);
+                localStorage.setItem('userId',data.userId);
+                localStorage.setItem('email',data.email);
+    
+                const resp = await fetch(`https://localhost:7193/cart?userId=${data.userId}`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                const cartData = await resp.json();
+                
+                if (cartData.length > 0)
+                {
+                    localStorage.setItem('cartDetails', JSON.stringify(cartData));
+                }
+    
+                navigate("/products")
             
             } else {
                 // Registration failed, handle errors here
