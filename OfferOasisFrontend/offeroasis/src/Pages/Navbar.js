@@ -1,11 +1,13 @@
-import { Outlet,useLocation } from 'react-router-dom'
+import {Outlet, useLocation, useNavigate} from 'react-router-dom'
 import { useEffect,useState } from 'react';
 import {toast} from "react-toastify"; 
 
 export default function Navbar({ ...props }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const name=localStorage.getItem("userName");
+  const navigate = useNavigate();
   const location = useLocation();
+  
   useEffect(() => {
     setToken(localStorage.getItem('token'))
   }, [location]);
@@ -16,8 +18,9 @@ export default function Navbar({ ...props }) {
     {
       await saveCartToDb();
     }
-    localStorage.removeItem("token");
-    localStorage.removeItem("productsInCart");
+    await localStorage.removeItem("token");
+    await localStorage.removeItem("productsInCart");
+    navigate("/login")
   }
 
   const saveCartToDb = async () => {
