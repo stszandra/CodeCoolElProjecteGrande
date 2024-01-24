@@ -1,45 +1,42 @@
 import "tailwindcss/tailwind.css";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Contact() {
- console.log(localStorage.getItem('email'));
+  console.log(localStorage.getItem('email'));
   const SendMessageData = async (event) => {
     event.preventDefault();
-    const messageValue=event.target.message.value;
-    const email=localStorage.getItem('email');
-    const userName=localStorage.getItem('userName');
-    let requestBody={
-      email:email,
-      userName:userName,
-      content:messageValue
-      
+    const messageValue = event.target.message.value;
+    const email = localStorage.getItem('email');
+    const userName = localStorage.getItem('userName');
+    let requestBody = {
+      email: email,
+      userName: userName,
+      content: messageValue
     }
     try {
-        const response = await fetch('https://localhost:7193/add',
-     {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
+      const response = await fetch('https://localhost:7193/add',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
         });
-        
-        if (response.ok) {
-        console.log(response.body)
-        
-        } else {
-            // Registration failed, handle errors here
-            console.log("No")
-        }
+
+      if (response.ok) {
+        toast("Message sent!")
+      } else {
+        console.log("Error sending message!")
+      }
     } catch (error) {
-        console.error('An error occurred:', error);
+      console.error('An error occurred:', error);
     }
-};
+  };
   return (
     <div>
       <section className="text-gray-700 body-font relative" >
-        
-        <form className="container px-5 py-24 mx-auto" onSubmit={(e)=>SendMessageData(e)} >
+        <form className="container px-5 py-24 mx-auto" onSubmit={(e) => SendMessageData(e)} >
           <div className="flex flex-col text-center w-full mb-12">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
               Contact Us
@@ -57,9 +54,8 @@ export default function Contact() {
                     Name
                   </label>
                   <input
-                  
-                  disabled
-                  value={localStorage.getItem('userName')==null? 'Please login!':localStorage.getItem('userName')}
+                    disabled
+                    value={localStorage.getItem('userName') == null ? 'Please login!' : localStorage.getItem('userName')}
                     type="text"
                     id="name"
                     name="name"
@@ -77,8 +73,8 @@ export default function Contact() {
                     Email
                   </label>
                   <input
-                  disabled
-                  value={localStorage.getItem('email')}
+                    disabled
+                    value={localStorage.getItem('email')}
                     type="email"
                     id="email"
                     name="email"
@@ -105,7 +101,7 @@ export default function Contact() {
               </div>
               <div className="p-2 w-full">
                 <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                 Send
+                  Send
                 </button>
               </div>
               <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
