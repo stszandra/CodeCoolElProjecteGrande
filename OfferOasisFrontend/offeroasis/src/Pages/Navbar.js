@@ -24,9 +24,7 @@ export default function Navbar({ ...props }) {
   }
 
   const saveCartToDb = async () => {
-    
-    // Send a POST request to the backend with the form data
-    try {
+   try {
       const response = await fetch(`https://localhost:7193/cart`,
           {
             method: 'POST',
@@ -41,16 +39,13 @@ export default function Navbar({ ...props }) {
           });
 
       if (response.ok) {
-        toast('You succesfully saved your cart');
+        toast('You successfully saved your cart');
       } else {
         toast('Saving cart failed, please contact our helpdesk!')
       }
-
-
     } catch (error) {
       console.error('An error occurred:', error);
     }
-
   };
   
   return (
