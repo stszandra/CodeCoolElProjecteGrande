@@ -1,5 +1,6 @@
 import { Outlet,useLocation } from 'react-router-dom'
-import { useEffect,useState } from 'react'; 
+import { useEffect,useState } from 'react';
+import {toast} from "react-toastify"; 
 
 export default function Navbar({ ...props }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -9,10 +10,46 @@ export default function Navbar({ ...props }) {
     setToken(localStorage.getItem('token'))
   }, [location]);
 
-  const removeToken = () => {
+  const logout = async (event) => {
+    event.preventDefault();
+    if (localStorage.getItem('productsInCart') != null)
+    {
+      await saveCartToDb();
+    }
     localStorage.removeItem("token");
-    localStorage.removeItem("products");
+    localStorage.removeItem("productsInCart");
   }
+
+  const saveCartToDb = async () => {
+    
+    // Send a POST request to the backend with the form data
+    try {
+      const response = await fetch(`https://localhost:7193/cart`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                  listOfCartDetails: JSON.parse(localStorage.getItem('productsInCart')).map(p => ({ Id: 0, productId: p.id, userId: localStorage.getItem('userId'), quantity: p.quantity, productPrice: p.price })),
+                }
+            )
+          });
+
+      if (response.ok) {
+        toast('You succesfully saved your cart');
+      } else {
+        toast('Saving cart failed, please contact our helpdesk!')
+      }
+
+
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+
+  };
+  
   return (
     <>
       <nav className="bg-red-50 shadow shadow-red-500 w-100 px-8 md:px-auto">
@@ -45,7 +82,7 @@ export default function Navbar({ ...props }) {
       </svg>
       
       {token ? (
-        <a href="/login" onClick={removeToken}><span>Logout</span></a>
+        <a href="/login" onClick={(e) => logout(e)}><span>Logout</span></a>
       ) : (
         <a href="/login" ><span>Login/Register</span></a>
       )}
