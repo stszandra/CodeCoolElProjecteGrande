@@ -7,15 +7,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function OrderDetails() {
   const token = localStorage.getItem('token');
-  // const products = localStorage.getItem('products');
+  const userId = localStorage.getItem('userId');
   const email = localStorage.getItem('email');
   const replacedEmail = email.replace('@', '%40');
   const [userData, setUserData] = useState([]);
   const [gProducts, setGProducts] = useState([]);
 
   let groupedProducts = [];
-  if (localStorage.getItem('products')) {
-    groupedProducts = JSON.parse(localStorage.getItem('products'));
+  if (localStorage.getItem('productsInCart')) {
+    groupedProducts = JSON.parse(localStorage.getItem('productsInCart'));
   }
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function OrderDetails() {
           },
           body: JSON.stringify(
             {
-              listOfOrderDetails: groupedProducts.map(orderDetail => ({ orderId: 0, orderDetailId: 0, productId: orderDetail.id, quantity: orderDetail.quantity, productPrice: orderDetail.price })),
+              listOfOrderDetails: groupedProducts.map(product => ({ orderId: 0, orderDetailId: 0, productId: product.id, quantity: product.quantity, productPrice: product.price })),
               shippingType: 0,
               userId: userData.result.id,
               shippingAddress: userData.result.address,
@@ -50,7 +50,7 @@ export default function OrderDetails() {
       if (response.ok) {
         toast('You succesfully placed your order');
         setGProducts([]);
-        localStorage.removeItem('products')
+        await clearCart();
       } else {
         toast('Order placement failed, please contact our helpdesk!')
       }
@@ -63,7 +63,7 @@ export default function OrderDetails() {
   };
 
   function calculateTotalPrice(cart) {
-    return groupedProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+    return cart.reduce((total, product) => total + product.price * product.quantity, 0);
   }
   const totalPrice = calculateTotalPrice(groupedProducts);
 
@@ -71,13 +71,32 @@ export default function OrderDetails() {
     groupedProducts.find(o => o.id === parseInt(e.target.id)).quantity = e.target.valueAsNumber;
     setGProducts(groupedProducts);
 
-    localStorage.setItem('products', JSON.stringify(groupedProducts));
+    localStorage.setItem('productsInCart', JSON.stringify(groupedProducts));
 
   }
-  function clearCart() {
-    localStorage.removeItem('products');
-    setGProducts([]);
+  async function clearCart() {
+    try {
+      const response = await fetch(`https://localhost:7193/cart?userId=${userId}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
+      if (response.ok) {
+        toast('You succesfully cleared your cart');
+        localStorage.removeItem('productsInCart');
+        localStorage.removeItem('cartDetails');
+        setGProducts([]);
+      } else {
+        toast('Clearing cart failed, please contact our helpdesk!')
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
+  
   return (
     <div className="h-auto">
       {token ? (
