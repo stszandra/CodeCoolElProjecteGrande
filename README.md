@@ -1,7 +1,7 @@
 <h1 align="center">Offer Oasis - Webshop Application</h1>
 
-<h5 align="center">Offer Oasis is a webshop application developed using ASP.NET Core Web API for the backend and JavaScript with React for the frontend. The project focuses on imitating a fully functional webshop, employing technologies learned during our studies at Codecool.
-</h5>
+<h4 align="center">Offer Oasis is a webshop application developed using ASP.NET Core Web API for the backend and JavaScript with React for the frontend. The project focuses on imitating a fully functional webshop, employing technologies learned during our studies at Codecool.
+</h4>
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@
 ## Project Goals
 
 - **Imitate Webshop Functionality:** The primary goal is to create a webshop with full functionality to showcase our knowledge.
-- **Agile and Scrum Development:** The project was developed in five sprints, following Agile and Scrum methodologies to simulate real-life work conditions.
+- **Agile and Scrum Development:** The base project was developed in five sprints, following Agile and Scrum methodologies to simulate real-life work conditions. Further developements were carried out as a pet project of the contributors.
 
 ## Main Technologies Used
 
