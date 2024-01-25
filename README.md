@@ -19,10 +19,15 @@
 
 ## Main Technologies Used
 
-- **Backend:** ASP.NET Core Web API
-- **Frontend:** JavaScript (React) and CSS (Tailwind)
-- **Database:** Dockerized MSSQL
-- **CI/CD:** GitHub Actions
+- **Backend:** [![.NET Logo](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)](https://dotnet.microsoft.com/)
+
+- **Frontend:** [![React Logo](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+ [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+- **Database:** [![MS SQL Server](https://img.shields.io/badge/MSSQL-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)](https://www.microsoft.com/en-us/sql-server)
+
+- **CI/CD:** [![GitHub Logo](https://img.shields.io/badge/GitHub-Actions-2088FF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/features/actions)
+
 
 ## Usage Of The Site
 
@@ -50,6 +55,6 @@ Feel free to reach out to any of the contributing members to request access to o
 
 ## Contributors
 
-- **Backend, DevOps, Dockerization, Agile Methodologies:** [Réka Makádi](https://github.com/rekamakadi)
-- **Backend, Database:** [Balázs Oltvölgyi](https://github.com/balazs-oltvolgyi)
-- **Frontend:** [József Armand Varga](https://github.com/Mondi18)
+- **Backend, DevOps, Dockerization, Agile Methodologies:** [![Réka Makádi](https://img.shields.io/badge/Réka%20Makádi-blue.svg?logo=github)](https://github.com/rekamakadi)
+- **Backend, Database:** [![Balázs Oltvölgyi](https://img.shields.io/badge/Bal%C3%A1zs%20Oltv%C3%B6lgyi-blue.svg?logo=github)](https://github.com/balazs-oltvolgyi)
+- **Frontend:** [![József Armand Varga](https://img.shields.io/badge/József%20Armand%20Varga-blue.svg?logo=github)](https://github.com/Mondi18)
