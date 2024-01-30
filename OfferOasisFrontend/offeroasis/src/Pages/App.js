@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { globalContext } from "../Pages/Navbar";
 
 function App() {
   const [products, setProducts] = useState([]);
   const token=localStorage.getItem("token");
   const userCart = JSON.parse(localStorage.getItem("cartDetails"));
+  const { productType, setProductType } = useContext(globalContext)
 
   useEffect(() => {
       fetch("https://localhost:7193/products")
@@ -70,7 +72,7 @@ function App() {
             )}
         <div>
           <section className="cards grid grid-cols-3 ml-12 mt-12 ">
-            {products.map(p =>
+            {products.filter(product=>product.productTypeString==productType).map(p =>
               <div className="max-w-sm mb-6 w-64 bg-white border justify-center flex-col flex item-center border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={p.id}>
                 <div className="flex justify-center" >
                   <img className="rounded-t-lg w-36 h-36" src={p.imageUrl} alt=""  />
