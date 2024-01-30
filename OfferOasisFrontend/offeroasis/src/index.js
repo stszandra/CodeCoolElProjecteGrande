@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Navbar from "./Pages/Navbar";
+import {Navbar} from "./Pages/Navbar";
 import App from "./Pages/App";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-import Contact from "./Pages/Contact";
 import About from "./Pages/About";
 import OrderDetails from "./Pages/OrderDetails";
 import Terms from "./Pages/Terms";
-
+import Contact from "./Pages/Contact";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: <Contact/>,
       },
       {
         path: "/about",
