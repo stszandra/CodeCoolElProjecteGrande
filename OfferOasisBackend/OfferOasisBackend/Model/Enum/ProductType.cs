@@ -2,11 +2,11 @@
 
 public enum ProductType
 {
-    Notebook,
-    Processor,
-    VGA,
-    SSD,
-    Memory,
-    Monitor,
-    Console
+   Tablet,
+   Clothing,
+   Laptop,
+   Misc,
+   Phone,
+   Speaker
+   
 }
