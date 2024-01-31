@@ -125,7 +125,7 @@ export function Sidebar() {
                                         <ListItemPrefix>
                                             <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                         </ListItemPrefix>
-                                       Notebook
+                                       Phone
                                     </ListItem>
                                 </List>
                                 <List className="p-0">
@@ -133,7 +133,7 @@ export function Sidebar() {
                                         <ListItemPrefix>
                                             <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                         </ListItemPrefix>
-                                        Beauty Care
+                                        Laptop
                                     </ListItem>
                                 </List>
                                 <List className="p-0">
@@ -141,7 +141,23 @@ export function Sidebar() {
                                         <ListItemPrefix>
                                             <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                         </ListItemPrefix>
-                                        Kitchen Tools
+                                     Speaker
+                                    </ListItem>
+                                </List>
+                                <List className="p-0">
+                                    <ListItem onClick={(e)=>filterProducts(e)}>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                     Clothing
+                                    </ListItem>
+                                </List>
+                                <List className="p-0">
+                                    <ListItem onClick={(e)=>filterProducts(e)}>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                     Misc
                                     </ListItem>
                                 </List>
                             </AccordionBody>
