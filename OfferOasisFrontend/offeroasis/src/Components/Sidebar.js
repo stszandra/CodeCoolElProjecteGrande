@@ -164,7 +164,7 @@ export function Sidebar() {
                         </Accordion>
                         <hr className="my-2 border-blue-gray-50" />
                         <Link to="/cart" >
-                        <ListItem>
+                        <ListItem onClick={() => closeDrawer()}>
                             <ListItemPrefix>
                                 <UserCircleIcon className="h-5 w-5" />
                             </ListItemPrefix>
@@ -172,8 +172,7 @@ export function Sidebar() {
                         </ListItem>
                         </Link>
                         <Link to="/contact">
-                        <ListItem>
-                            
+                        <ListItem onClick={() => closeDrawer()}>
                             <ListItemPrefix>
                                 <Cog6ToothIcon className="h-5 w-5" />
                             </ListItemPrefix>
@@ -181,7 +180,7 @@ export function Sidebar() {
                         </ListItem>
                         </Link>
                         <Link to="/about">
-                        <ListItem>
+                        <ListItem onClick={() => closeDrawer()}>
                             <ListItemPrefix>
                                 <Cog6ToothIcon className="h-5 w-5" />
                             </ListItemPrefix>
