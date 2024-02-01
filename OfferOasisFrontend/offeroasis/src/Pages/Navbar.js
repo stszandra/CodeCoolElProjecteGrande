@@ -57,13 +57,8 @@ export function Navbar({ ...props }) {
     <globalContext.Provider value={{productType, setProductType}}>
       <nav className="bg-red-50 shadow shadow-red-500 w-100 px-8 md:px-auto">
         <div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
-          <div className="text-indigo-500 md:order-1">
-            <svg xmlns="" className="h-10 w-10" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-            </svg>
-          </div>
           <div className="text-gray-500 order-3 w-full md:w-auto md:order-2 flex items-center">
-            <ul className="flex font-semibold justify-between">
+            <ul className="flex font-semibold justify-between text-2xl">
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/about">OfferOasis</a></li>
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/products">Products</a></li>
               <li className="md:px-4 md:py-2 hover:text-indigo-400"><a href="/cart">My Cart/Info</a></li>
@@ -85,7 +80,7 @@ export function Navbar({ ...props }) {
                 {token ? (
                   <a href="/login" onClick={(e) => logout(e)}><span>Logout</span></a>
                 ) : (
-                  <a href="/login" ><span>Login/Register</span></a>
+                  <a href="/login" className="text-lg"><span>Login/Register</span></a>
                 )}
               </button>
             </div>
