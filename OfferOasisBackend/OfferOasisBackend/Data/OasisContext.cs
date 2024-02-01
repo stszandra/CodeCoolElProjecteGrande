@@ -49,7 +49,7 @@ public class OasisContext : IdentityDbContext<User, IdentityRole, string>
                 new Product(10, "Speaker", ProductType.Speaker, 100, 20,
                     "https://www.pngall.com/wp-content/uploads/13/Speaker-Sound-PNG-File.png"),
                 new Product(11, "Women's Dress", ProductType.Clothing, 25, 20,
-                    "https://www.pngall.com/wp-content/uploads/13/Speaker-Sound-PNG-File.png"),
+                    "https://w7.pngwing.com/pngs/639/359/png-transparent-dress-clothing-red-dress-fashion-vintage-clothing-desktop-wallpaper-thumbnail.png"),
                 new Product(12, "Men's Shirt", ProductType.Clothing, 18, 20,
                     "https://shop.globalcyclingnetwork.com/cdn/shop/files/FR_400x.png?v=1701258835"),
                 new Product(13, "Men's Sweater", ProductType.Clothing, 22, 20,
