@@ -73,7 +73,7 @@ function App() {
         <div>
           <section className="cards grid grid-cols-3 ml-12 mt-12 ">
             {products.filter(product=>productType==null?product.name!=null:product.productTypeString==productType).map(p =>
-              <div className="max-w-sm mb-6 w-64 bg-white border justify-center flex-col flex item-center border-gray-200 rounded-lg shadow dark:bg-gray-600 dark:border-gray-700" key={p.id}>
+              <div id={p.name} className="max-w-sm mb-6 w-64 bg-white border justify-center flex-col flex item-center border-gray-200 rounded-lg shadow dark:bg-gray-600 dark:border-gray-700" key={p.id}>
                 <div className="flex justify-center" >
                   <img className="rounded-t-lg w-36" src={p.imageUrl} alt=""  />
                 </div>
