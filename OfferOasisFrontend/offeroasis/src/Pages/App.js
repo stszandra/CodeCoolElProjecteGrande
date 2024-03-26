@@ -84,9 +84,9 @@ function App() {
                   <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 flex justify-center">{p.price} Euro</p>
                   <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 flex justify-center">{p.quantityInStock} in stock</p>
                   {token ?
-                    (<div>
-                      <button onClick={() => addProductsToCart(p)} className=" rounded-lg mb-2 bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 ml-8" > Add to Cart</button>
-                      <ToastContainer />
+                    (<div >
+                      <button id={p.name + "_button"} onClick={() => addProductsToCart(p)} className=" rounded-lg mb-2 bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 ml-8" > Add to Cart</button>
+                     <ToastContainer />
                     </div>) : <div> </div>
                   }
                 </div>
