@@ -69,7 +69,7 @@ export function Navbar({ ...props }) {
 
             <div className="flex items-center gap-4">
               {token ?
-                <h4 className="text-gray-500">Logged in as {name}</h4>
+                <h4 id="logged-in-as" className="text-gray-500">Logged in as {name}</h4>
                 : <></>}
 
               <button id= "login_register_button" className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2">
