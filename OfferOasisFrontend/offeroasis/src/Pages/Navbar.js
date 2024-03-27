@@ -67,7 +67,7 @@ export function Navbar({ ...props }) {
           </div>
           <div className="order-2 md:order-3 flex items-center">
 
-            <div className="flex items-center gap-4">
+            <div id="div-for-logout" className="flex items-center gap-4">
               {token ?
                 <h4 id="logged-in-as" className="text-gray-500">Logged in as {name}</h4>
                 : <></>}
