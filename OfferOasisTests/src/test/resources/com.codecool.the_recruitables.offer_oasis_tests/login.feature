@@ -25,14 +25,3 @@ Feature: Login
       | micimacko          | malacka       |
       | elsa@anna.com      | frozen        |
       | email@email.com    |               |
-
-
-# Have to handle the empty inputs on Step Definition side? Do empty inputs count as invalid acc/pw?
-  #Scenario: Log in with empty fields
-   # Given the login page is opened
-   # When I click on "Login to your accaunt" button
-   # Then warning message appers
-
-
-
-
