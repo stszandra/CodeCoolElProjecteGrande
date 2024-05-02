@@ -30,7 +30,8 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.chromedriver = driver;
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        chromedriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        chromedriver.manage().window().maximize();
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(chromedriver, Duration.ofSeconds(15));
     }

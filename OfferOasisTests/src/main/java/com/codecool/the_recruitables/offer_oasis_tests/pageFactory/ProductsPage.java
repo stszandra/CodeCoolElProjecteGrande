@@ -25,6 +25,7 @@ public class ProductsPage {
         this.chromedriver = driver;
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(chromedriver, Duration.ofSeconds(10));
+        chromedriver.manage().window().maximize();
     }
 
     public boolean verifySite() {
