@@ -3,6 +3,10 @@
 <h4 align="center">Offer Oasis is a webshop application developed using ASP.NET Core Web API for the backend and JavaScript with React for the frontend. The project focuses on imitating a fully functional webshop, employing technologies learned during our studies at Codecool.
 </h4>
 
+
+Note: **Automated tests** are also available for the webshop in a separate repository: [OfferOasis test repository](https://github.com/FoldiKrizsanIldiko/OfferOasisTest-BDD)
+
+
 ## Table of Contents
 
 - [Project Goals](#project-goals)
