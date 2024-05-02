@@ -4,10 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class MyCartPage {
-    WebDriver driver;
+    WebDriver chromedriver;
 
     public MyCartPage(WebDriver driver){
-        this.driver=driver;
+        this.chromedriver=driver;
         PageFactory.initElements(driver, this);
+        chromedriver.manage().window().maximize();
     }
 }
